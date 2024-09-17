@@ -28,6 +28,8 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/search_button"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -39,9 +41,12 @@
             app:cornerRadius="@dimen/corner"
             app:iconTint="@color/text_color"
             app:iconGravity="textStart"
-            app:icon="@drawable/search"/>
+            app:icon="@drawable/search"
+            />
 
         <Button
+            android:id="@+id/media_button"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -56,6 +61,8 @@
             app:icon="@drawable/library"/>
 
         <Button
+            android:id="@+id/settings_button"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
