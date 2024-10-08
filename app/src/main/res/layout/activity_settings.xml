@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:id="@+id/main"
+    android:background="@color/settings_screen_background"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="@string/settings"
-            android:textColor="@color/text_color"
+            android:textColor="@color/settings_text_color"
             android:textSize="@dimen/header_text_size" />
 
     </androidx.appcompat.widget.Toolbar>
@@ -31,64 +31,31 @@
         android:foreground="?attr/selectableItemBackground"
         android:paddingVertical="@dimen/settings_btn_padding_vertical"
         android:paddingStart="@dimen/common_margin"
-        android:paddingEnd="7dp"
+        android:paddingEnd="8dp"
         android:text="@string/dark_theme"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="@color/settings_text_color"
         android:textSize="@dimen/settings_text_size"
         app:thumbTint="@color/grey"
         app:trackTint="@color/light_grey" />
 
     <Button
         android:id="@+id/button_sharing"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="start"
-        android:paddingHorizontal="@dimen/settings_btn_padding_horizontal"
-        android:paddingVertical="@dimen/settings_btn_padding_vertical"
+        style="@style/button_borderless"
         android:text="@string/share_app"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="@dimen/settings_text_size"
-        app:icon="@drawable/share"
-        app:iconGravity="end"
-        app:iconTint="@color/grey" />
+        app:icon="@drawable/share" />
 
     <Button
         android:id="@+id/button_support"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="start"
-        android:paddingHorizontal="@dimen/settings_btn_padding_horizontal"
-        android:paddingVertical="@dimen/settings_btn_padding_vertical"
+        style="@style/button_borderless"
         android:text="@string/ask_support"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
-        android:textSize="@dimen/settings_text_size"
-        app:icon="@drawable/support"
-        app:iconGravity="end"
-        app:iconTint="@color/grey" />
+        app:icon="@drawable/support" />
 
     <Button
         android:id="@+id/button_user_agreement"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="start"
-        android:paddingVertical="@dimen/settings_btn_padding_vertical"
-        android:paddingStart="@dimen/settings_btn_padding_start"
-        android:paddingEnd="22dp"
+        style="@style/button_borderless"
         android:text="@string/user_agreement"
-        android:textAllCaps="false"
-        android:textColor="@color/black"
         android:textSize="@dimen/settings_text_size"
-        app:icon="@drawable/arrow_forward"
-        app:iconGravity="end"
-        app:iconTint="@color/grey" />
+        app:icon="@drawable/arrow_forward" />
 
 </LinearLayout>
