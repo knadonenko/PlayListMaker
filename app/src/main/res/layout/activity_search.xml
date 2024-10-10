@@ -34,7 +34,7 @@
         <EditText
             android:id="@+id/input_search_form"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="36dp"
             android:background="@drawable/custom_edittext"
             android:drawableStart="@drawable/search"
             android:drawablePadding="@dimen/icon_padding"
@@ -43,7 +43,6 @@
             android:hint="@string/search"
             android:inputType="text"
             android:lines="1"
-            android:maxLength="255"
             android:padding="@dimen/small_padding"
             android:paddingStart="@dimen/small_padding"
             android:paddingEnd="32dp"
@@ -54,11 +53,11 @@
 
         <ImageView
             android:id="@+id/clear_form"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_gravity="end|center"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/clear"
+            android:src="@drawable/clear_search"
             app:tint="@color/settings_icon_color" />
     </FrameLayout>
 
