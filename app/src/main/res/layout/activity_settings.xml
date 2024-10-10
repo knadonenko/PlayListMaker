@@ -37,7 +37,9 @@
         android:textColor="@color/settings_text_color"
         android:textSize="@dimen/settings_text_size"
         app:thumbTint="@color/grey"
-        app:trackTint="@color/light_grey" />
+        app:trackTint="@color/light_grey"
+        android:thumbTint="@color/settings_switch"
+        android:trackTint="@color/settings_switch"/>
 
     <Button
         android:id="@+id/button_sharing"

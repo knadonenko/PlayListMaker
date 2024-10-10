@@ -9,6 +9,7 @@
     <color name="light_grey">#E6E8EB</color>
     <color name="settings_text_color">#000000</color>
     <color name="settings_icon_color">#AEAFB4</color>
+    <color name="settings_switch">#AEAFB4</color>
     <color name="arrow_color">#000000</color>
 
     <color name="edit_text_color">#E6E8EB</color>
