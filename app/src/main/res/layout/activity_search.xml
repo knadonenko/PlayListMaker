@@ -61,4 +61,15 @@
             app:tint="@color/settings_icon_color" />
     </FrameLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_btn_padding_vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/search_item">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
 </LinearLayout>
