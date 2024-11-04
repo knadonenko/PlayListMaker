@@ -8,7 +8,7 @@ import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.SearchItemBinding
 import com.example.playlistmaker.model.Track
 
-class Search(itemView : View) : RecyclerView.ViewHolder(itemView) {
+class SearchViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
     private val binding = SearchItemBinding.bind(itemView)
 

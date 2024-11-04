@@ -5,17 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.model.Track
-import com.example.playlistmaker.viewholders.Search
+import com.example.playlistmaker.viewholders.SearchViewHolder
 
-class SearchViewAdapter(private val items: ArrayList<Track>) : RecyclerView.Adapter<Search>() {
+class SearchViewAdapter(private val items: ArrayList<Track>) : RecyclerView.Adapter<SearchViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Search {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.search_item, parent, false)
-        return Search(view)
+        return SearchViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: Search, position: Int) {
+    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         holder.bind(items[position])
     }
 
