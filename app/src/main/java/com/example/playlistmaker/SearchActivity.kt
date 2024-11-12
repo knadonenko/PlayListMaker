@@ -71,7 +71,6 @@ class SearchActivity : AppCompatActivity() {
         searchInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 getTrack()
-                true
             }
             false
         }
