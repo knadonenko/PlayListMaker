@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/settings_screen_background"
+    android:background="@color/settings_main_color"
     android:orientation="vertical"
     tools:context=".SearchActivity">
 
@@ -61,15 +61,67 @@
             app:tint="@color/settings_icon_color" />
     </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/settings_btn_padding_vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="vertical"
-        tools:listitem="@layout/search_item">
 
-    </androidx.recyclerview.widget.RecyclerView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/settings_btn_padding_vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:listitem="@layout/search_item">
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/placeholderNotFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="20dp"
+            android:text="@string/nothing_found"
+            android:textAlignment="center"
+            android:textColor="@color/settings_text_color"
+            android:textSize="19sp"
+            android:visibility="gone"
+            app:drawableTopCompat="@drawable/not_found" />
+
+        <LinearLayout
+            android:id="@+id/placeholderCommunication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/margin_24"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/connection_problem"
+                android:src="@drawable/no_internet" />
+
+            <TextView
+                style="@style/ErrorTextPlaceholder"
+                android:text="@string/connection_problem" />
+
+            <TextView
+                style="@style/ErrorTextPlaceholder"
+                android:text="@string/check_internet_connection" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/retryButton"
+                style="@style/ErrorButtonPlaceholder"
+                android:text="@string/retry_button"
+                app:cornerRadius="54dp" />
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>
