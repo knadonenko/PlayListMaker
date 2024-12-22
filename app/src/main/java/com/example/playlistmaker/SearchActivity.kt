@@ -1,6 +1,6 @@
 package com.example.playlistmaker
 
-import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,7 +14,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.adapters.SearchViewAdapter
 import com.example.playlistmaker.api.RetrofitHelper.retrofit
@@ -24,25 +23,40 @@ import com.example.playlistmaker.helpers.PlaceHolder
 import com.example.playlistmaker.helpers.PlaceHolder.ERROR
 import com.example.playlistmaker.helpers.PlaceHolder.NOT_FOUND
 import com.example.playlistmaker.helpers.PlaceHolder.SEARCH_RESULT
-import com.example.playlistmaker.model.Track
+import com.example.playlistmaker.helpers.PlaceHolder.TRACKS_HISTORY
+import com.example.playlistmaker.helpers.SharedPrefsNames.HISTORY_PREFS
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SearchActivity : AppCompatActivity() {
 
+    private var searchQuery = ""
     private lateinit var clearSearchButton: ImageView
     private lateinit var searchInput: EditText
-    private var searchQuery = ""
-    private val tracks = ArrayList<Track>()
     private val serviceSearch = retrofit.create(SearchAPI::class.java)
     private lateinit var searchResultRv: RecyclerView
     private lateinit var placeholderNothingWasFound: TextView
     private lateinit var placeholderCommunicationsProblem: LinearLayout
     private lateinit var buttonRetry: Button
 
+    //history
+    private lateinit var buttonClearHistory: Button
+    private lateinit var searchHistory: SearchHistory
+    private lateinit var historyList: LinearLayout
+    private lateinit var recyclerHistory: RecyclerView
+    private lateinit var history: SharedPreferences
+
     companion object {
         const val SAVED_SEARCH = "SAVED_SEARCH"
+    }
+
+    private val historyAdapter = SearchViewAdapter {
+        searchHistory.addHistory(it)
+    }
+
+    private val searchAdapter = SearchViewAdapter {
+        searchHistory.addHistory(it)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,9 +67,11 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
 
+        //placeholders
         placeholderNothingWasFound = findViewById(R.id.placeholderNotFound)
         placeholderCommunicationsProblem = findViewById(R.id.placeholderCommunication)
 
+        // search
         clearSearchButton = findViewById(R.id.clear_form)
         clearSearchButton.visibility = View.GONE
         clearSearchButton.setOnClickListener {
@@ -75,67 +91,40 @@ class SearchActivity : AppCompatActivity() {
             false
         }
 
+        searchInput.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus && searchInput.text.isEmpty()) {
+                showPlaceholder(SEARCH_RESULT)
+            }
+        }
+
         searchResultRv = findViewById(R.id.recycler_view)
-        searchResultRv.adapter = SearchViewAdapter(tracks)
+        searchResultRv.adapter = searchAdapter
 
         buttonRetry = findViewById(R.id.retryButton)
         buttonRetry.setOnClickListener {
             getTrack()
         }
 
-    }
+        // history
+        buttonClearHistory = findViewById(R.id.button_clear_history)
+        buttonClearHistory.setOnClickListener {
+            searchHistory.clearHistory()
+            showPlaceholder(SEARCH_RESULT)
+        }
+        historyList = findViewById(R.id.history_list)
+        recyclerHistory = findViewById(R.id.recyclerViewHistory)
 
-    private fun getTrack() {
-        serviceSearch.searchTrack(searchInput.text.toString())
-            .enqueue(object : Callback<SearchResponse> {
-                override fun onResponse(
-                    call: Call<SearchResponse>,
-                    response: Response<SearchResponse>,
-                ) {
-                    if (searchQuery.isNotEmpty() && !response.body()?.results.isNullOrEmpty() && response.code() == 200) {
-                        tracks.clear()
-                        tracks.addAll(response.body()?.results!!)
-                        searchResultRv.adapter?.notifyDataSetChanged()
-                        showPlaceholder(SEARCH_RESULT)
-                    } else {
-                        showPlaceholder(NOT_FOUND)
-                    }
-                }
+        recyclerHistory.adapter = historyAdapter
+        history = getSharedPreferences(HISTORY_PREFS.prefName, MODE_PRIVATE)
+        searchHistory = SearchHistory(history)
 
-                override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
-                    showPlaceholder(ERROR)
-                }
-            })
-    }
-
-    private val inputTextWatcher = object : TextWatcher {
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            clearSearchButton.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
-            searchQuery = s.toString()
+        if (searchInput.text.isEmpty()) {
+            historyAdapter.tracks = searchHistory.getHistory()
+            if (historyAdapter.tracks.isNotEmpty()) {
+                showPlaceholder(TRACKS_HISTORY)
+            }
         }
 
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun afterTextChanged(s: Editable?) {}
-    }
-
-    private fun clearSearchForm() {
-        searchInput.setText("")
-
-        val view = this.currentFocus
-        if (view != null) {
-            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
-        }
-
-        val inputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        searchInput.setText("")
-        inputMethodManager?.hideSoftInputFromWindow(searchInput.windowToken, 0)
-
-        placeholderNothingWasFound.isVisible = false
-        placeholderNothingWasFound.isVisible = false
-        tracks.clear()
-        searchResultRv.adapter?.notifyDataSetChanged()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -147,6 +136,66 @@ class SearchActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         searchQuery = savedInstanceState.getString(SAVED_SEARCH, "")
         searchInput.setText(searchQuery)
+    }
+
+    private fun getTrack() {
+        if (searchQuery.isNotEmpty()) {
+            serviceSearch.searchTrack(searchQuery)
+                .enqueue(object : Callback<SearchResponse> {
+                    override fun onResponse(
+                        call: Call<SearchResponse>,
+                        response: Response<SearchResponse>,
+                    ) {
+                        when (response.code()) {
+                            200 -> {
+                                if (response.body()?.results?.isNotEmpty() == true) {
+                                    searchAdapter.tracks = response.body()?.results!!
+                                    showPlaceholder(SEARCH_RESULT)
+                                } else {
+                                    showPlaceholder(NOT_FOUND)
+                                }
+                            }
+                            else -> {
+                                showPlaceholder(ERROR)
+                            }
+                        }
+
+                    }
+
+                    override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+                        showPlaceholder(ERROR)
+                    }
+                })
+        }
+    }
+
+    private val inputTextWatcher = object : TextWatcher {
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            clearSearchButton.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
+            searchQuery = s.toString()
+
+            if (searchInput.hasFocus() && searchQuery.isNotEmpty()) {
+                showPlaceholder(SEARCH_RESULT)
+            }
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun afterTextChanged(s: Editable?) {}
+    }
+
+    private fun clearSearchForm() {
+        searchInput.setText("")
+        historyAdapter.tracks = searchHistory.getHistory()
+        if (historyAdapter.tracks.isNotEmpty()) {
+            showPlaceholder(TRACKS_HISTORY)
+        } else {
+            showPlaceholder(SEARCH_RESULT)
+        }
+        val view = this.currentFocus
+        if (view != null) {
+            val input = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            input.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 
     private fun showPlaceholder(placeholder: PlaceHolder) {
@@ -162,8 +211,15 @@ class SearchActivity : AppCompatActivity() {
                 placeholderNothingWasFound.visibility = View.GONE
                 placeholderCommunicationsProblem.visibility = View.VISIBLE
             }
-            else -> {
+            SEARCH_RESULT -> {
                 searchResultRv.visibility = View.VISIBLE
+                historyList.visibility = View.GONE
+                placeholderNothingWasFound.visibility = View.GONE
+                placeholderCommunicationsProblem.visibility = View.GONE
+            }
+            TRACKS_HISTORY -> {
+                searchResultRv.visibility = View.GONE
+                historyList.visibility = View.VISIBLE
                 placeholderNothingWasFound.visibility = View.GONE
                 placeholderCommunicationsProblem.visibility = View.GONE
             }
