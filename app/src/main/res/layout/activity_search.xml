@@ -150,6 +150,7 @@
                 android:id="@+id/button_clear_history"
                 style="@style/ErrorButtonPlaceholder"
                 android:layout_margin="@dimen/margin_24"
+
                 android:inputType="textCapSentences"
                 android:text="@string/clear_history" />
         </LinearLayout>

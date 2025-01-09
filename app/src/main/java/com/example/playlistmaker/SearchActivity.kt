@@ -176,11 +176,16 @@ class SearchActivity : AppCompatActivity() {
 
             if (searchInput.hasFocus() && searchQuery.isNotEmpty()) {
                 showPlaceholder(SEARCH_RESULT)
+            } else if (searchQuery.isEmpty() && historyAdapter.tracks.isNotEmpty()) {
+                historyAdapter.tracks = searchHistory.getHistory()
+                showPlaceholder(TRACKS_HISTORY)
             }
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun afterTextChanged(s: Editable?) {}
+
+        override fun afterTextChanged(s: Editable?) {
+        }
     }
 
     private fun clearSearchForm() {

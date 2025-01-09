@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.playlistmaker.helpers.SharedPrefsNames
+import com.example.playlistmaker.helpers.SharedPrefsNames.*
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
@@ -16,8 +18,11 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
         val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
-        themeSwitcher.setOnCheckedChangeListener { switcher, checked ->
+        themeSwitcher.isChecked = getSharedPreferences(PLAYLIST_MAKER_PREFS.prefName, MODE_PRIVATE)
+            .getBoolean(DARK_THEME_KEY.prefName, false)
+        themeSwitcher.setOnCheckedChangeListener { _, checked ->
             (applicationContext as App).switchTheme(checked)
+            (applicationContext as App).saveTheme(checked)
         }
         findViewById<Button>(R.id.button_sharing).setOnClickListener {
             Intent().apply {

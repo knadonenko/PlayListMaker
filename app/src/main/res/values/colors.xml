@@ -23,4 +23,7 @@
     <color name="search_result_artist_text_color">#AEAFB4</color>
 
     <color name="search_result_icon">#1A1B22</color>
+
+    <color name="settings_1">#AEAFB4</color>
+    <color name="settings_2">#E6E8EB</color>
 </resources>
