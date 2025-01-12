@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -78,25 +79,6 @@ class SearchActivity : AppCompatActivity() {
             clearSearchForm()
         }
 
-        searchInput = findViewById(R.id.input_search_form)
-        searchInput.requestFocus()
-        searchInput.addTextChangedListener(inputTextWatcher)
-        searchInput.setText(searchQuery)
-        searchInput.requestFocus()
-
-        searchInput.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                getTrack()
-            }
-            false
-        }
-
-        searchInput.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus && searchInput.text.isEmpty()) {
-                showPlaceholder(SEARCH_RESULT)
-            }
-        }
-
         searchResultRv = findViewById(R.id.recycler_view)
         searchResultRv.adapter = searchAdapter
 
@@ -117,6 +99,26 @@ class SearchActivity : AppCompatActivity() {
         recyclerHistory.adapter = historyAdapter
         history = getSharedPreferences(HISTORY_PREFS.prefName, MODE_PRIVATE)
         searchHistory = SearchHistory(history)
+
+        //search input
+        searchInput = findViewById(R.id.input_search_form)
+        searchInput.requestFocus()
+        searchInput.addTextChangedListener(inputTextWatcher)
+        searchInput.setText(searchQuery)
+        searchInput.requestFocus()
+
+        searchInput.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                getTrack()
+            }
+            false
+        }
+
+        searchInput.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus && searchInput.text.isEmpty()) {
+                showPlaceholder(SEARCH_RESULT)
+            }
+        }
 
         if (searchInput.text.isEmpty()) {
             historyAdapter.tracks = searchHistory.getHistory()
@@ -176,7 +178,10 @@ class SearchActivity : AppCompatActivity() {
 
             if (searchInput.hasFocus() && searchQuery.isNotEmpty()) {
                 showPlaceholder(SEARCH_RESULT)
-            } else if (searchQuery.isEmpty() && historyAdapter.tracks.isNotEmpty()) {
+            }
+
+            historyAdapter.tracks = searchHistory.getHistory()
+            if (searchQuery.isEmpty() && historyAdapter.tracks.isNotEmpty()) {
                 historyAdapter.tracks = searchHistory.getHistory()
                 showPlaceholder(TRACKS_HISTORY)
             }
@@ -185,6 +190,7 @@ class SearchActivity : AppCompatActivity() {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun afterTextChanged(s: Editable?) {
+
         }
     }
 
