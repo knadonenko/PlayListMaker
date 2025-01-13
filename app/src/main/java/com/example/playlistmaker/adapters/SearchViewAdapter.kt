@@ -2,12 +2,23 @@ package com.example.playlistmaker.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
+import com.example.playlistmaker.api.SearchDiffCallBack
 import com.example.playlistmaker.model.Track
 import com.example.playlistmaker.viewholders.SearchViewHolder
 
-class SearchViewAdapter(private val items: ArrayList<Track>) : RecyclerView.Adapter<SearchViewHolder>() {
+class SearchViewAdapter(private val clickListener: TrackClickListener) : RecyclerView.Adapter<SearchViewHolder>() {
+
+    var tracks = ArrayList<Track>()
+        set(newTrackList) {
+            val diffResult = DiffUtil.calculateDiff(
+                SearchDiffCallBack(field, newTrackList)
+            )
+            field = newTrackList
+            diffResult.dispatchUpdatesTo(this)
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -16,11 +27,18 @@ class SearchViewAdapter(private val items: ArrayList<Track>) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.apply {
+            bind(tracks[position])
+            itemView.setOnClickListener {
+                clickListener.onTrackClick(tracks[position])
+            }
+        }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
+    override fun getItemCount() = tracks.size
+
+    fun interface TrackClickListener {
+        fun onTrackClick(track: Track)
     }
 
 }

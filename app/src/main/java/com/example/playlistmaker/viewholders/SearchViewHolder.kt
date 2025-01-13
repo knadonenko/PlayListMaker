@@ -26,7 +26,6 @@ class SearchViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
             .placeholder(R.drawable.track_stub)
             .transform(RoundedCorners(2))
             .into(trackIcon)
-
     }
 
 }

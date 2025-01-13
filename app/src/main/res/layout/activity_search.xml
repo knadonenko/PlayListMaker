@@ -61,8 +61,6 @@
             app:tint="@color/settings_icon_color" />
     </FrameLayout>
 
-
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -120,6 +118,41 @@
                 style="@style/ErrorButtonPlaceholder"
                 android:text="@string/retry_button"
                 app:cornerRadius="54dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/history_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/ys_display_medium"
+                android:gravity="center"
+                android:text="@string/search_history"
+                android:textColor="?attr/colorOnSecondary"
+                android:textSize="@dimen/text_size_18" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewHistory"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/search_item" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_clear_history"
+                style="@style/ErrorButtonPlaceholder"
+                android:layout_margin="@dimen/margin_24"
+
+                android:inputType="textCapSentences"
+                android:text="@string/clear_history" />
         </LinearLayout>
 
     </FrameLayout>

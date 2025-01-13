@@ -9,7 +9,7 @@
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/margin_12"
     android:paddingVertical="@dimen/small_padding"
-    android:theme="@style/Theme.PlayListMaker">
+    android:theme="@style/Theme.PlaylistMaker">
 
     <ImageView
         android:id="@+id/trackIcon"
