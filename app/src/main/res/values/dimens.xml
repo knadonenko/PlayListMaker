@@ -23,6 +23,6 @@
     <dimen name="icon_size_24">24dp</dimen>
     <dimen name="icon_size">48dp</dimen>
     <dimen name="button_size">52dp</dimen>
-    <dimen name="button_play">84dp</dimen>
+    <dimen name="button_play">100dp</dimen>
 
 </resources>
