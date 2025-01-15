@@ -1,5 +1,6 @@
 package com.example.playlistmaker
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -20,12 +21,15 @@ import com.example.playlistmaker.adapters.SearchViewAdapter
 import com.example.playlistmaker.api.RetrofitHelper.retrofit
 import com.example.playlistmaker.api.SearchAPI
 import com.example.playlistmaker.api.SearchResponse
+import com.example.playlistmaker.helpers.IntentConstants
 import com.example.playlistmaker.helpers.PlaceHolder
 import com.example.playlistmaker.helpers.PlaceHolder.ERROR
 import com.example.playlistmaker.helpers.PlaceHolder.NOT_FOUND
 import com.example.playlistmaker.helpers.PlaceHolder.SEARCH_RESULT
 import com.example.playlistmaker.helpers.PlaceHolder.TRACKS_HISTORY
 import com.example.playlistmaker.helpers.SharedPrefsNames.HISTORY_PREFS
+import com.example.playlistmaker.model.Track
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,11 +57,11 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private val historyAdapter = SearchViewAdapter {
-        searchHistory.addHistory(it)
+        clickOnTrack(it)
     }
 
     private val searchAdapter = SearchViewAdapter {
-        searchHistory.addHistory(it)
+        clickOnTrack(it)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -207,6 +211,14 @@ class SearchActivity : AppCompatActivity() {
             val input = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             input.hideSoftInputFromWindow(view.windowToken, 0)
         }
+    }
+
+    private fun clickOnTrack(track: Track) {
+        searchHistory.addHistory(track)
+        val intent = Intent(this, PlayerActivity::class.java).apply {
+            putExtra(IntentConstants.TRACK, Gson().toJson(track))
+        }
+        startActivity(intent)
     }
 
     private fun showPlaceholder(placeholder: PlaceHolder) {
