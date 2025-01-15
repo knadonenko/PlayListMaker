@@ -26,4 +26,8 @@
 
     <color name="settings_1">#AEAFB4</color>
     <color name="settings_2">#E6E8EB</color>
+
+    <color name="player_button_additional">#40000000</color>
+    <color name="player_button">#000000</color>
+    <color name="player_progress_text">#000000</color>
 </resources>
