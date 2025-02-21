@@ -145,6 +145,11 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(searchRunnable)
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(SAVED_SEARCH, searchQuery)
@@ -158,7 +163,6 @@ class SearchActivity : AppCompatActivity() {
 
     private fun getTrack() {
         if (searchQuery.isNotEmpty()) {
-            showPlaceholder(LOADING)
             serviceSearch.searchTrack(searchQuery)
                 .enqueue(object : Callback<SearchResponse> {
                     override fun onResponse(
@@ -190,12 +194,19 @@ class SearchActivity : AppCompatActivity() {
 
     private val inputTextWatcher = object : TextWatcher {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun afterTextChanged(s: Editable?) {
             clearSearchButton.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
             searchQuery = searchInput.text.toString()
 
             if (searchInput.hasFocus() && searchQuery.isNotEmpty()) {
+                showPlaceholder(LOADING)
                 searchDebounce()
-                showPlaceholder(SEARCH_RESULT)
             }
 
             historyAdapter.tracks = searchHistory.getHistory()
@@ -203,12 +214,6 @@ class SearchActivity : AppCompatActivity() {
                 historyAdapter.tracks = searchHistory.getHistory()
                 showPlaceholder(TRACKS_HISTORY)
             }
-//            handler.removeCallbacks(searchRunnable)
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-        override fun afterTextChanged(s: Editable?) {
 
         }
     }
@@ -239,7 +244,6 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showPlaceholder(placeholder: PlaceHolder) {
-
         when (placeholder) {
             NOT_FOUND -> {
                 searchResultRv.visibility = View.GONE
