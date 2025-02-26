@@ -25,4 +25,7 @@
     <dimen name="button_size">52dp</dimen>
     <dimen name="button_play">100dp</dimen>
 
+    <!--search screen -->
+    <dimen name="progress_bar_44">44dp</dimen>
+
 </resources>
