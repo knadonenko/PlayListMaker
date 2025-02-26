@@ -1,7 +1,7 @@
 package com.example.playlistmaker.api
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.playlistmaker.model.Track
+import com.example.playlistmaker.data.dto.Track
 
 class SearchDiffCallBack(private val trackList: ArrayList<Track>,
                          private val newTrackList: ArrayList<Track>) : DiffUtil.Callback() {

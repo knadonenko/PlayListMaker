@@ -3,7 +3,7 @@ package com.example.playlistmaker
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.example.playlistmaker.helpers.SharedPrefsNames.HISTORY_TRACK
-import com.example.playlistmaker.model.Track
+import com.example.playlistmaker.data.dto.Track
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

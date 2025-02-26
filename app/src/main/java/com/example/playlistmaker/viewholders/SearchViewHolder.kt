@@ -7,9 +7,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.SearchItemBinding
 import com.example.playlistmaker.helpers.TimeHelper.convertTimeFromMillis
-import com.example.playlistmaker.model.Track
-import java.text.SimpleDateFormat
-import java.util.Locale
+import com.example.playlistmaker.data.dto.Track
 
 class SearchViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 

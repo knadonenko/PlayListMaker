@@ -17,7 +17,7 @@ import com.example.playlistmaker.helpers.AppConstants.TIME_ZERO
 import com.example.playlistmaker.helpers.IntentConstants
 import com.example.playlistmaker.helpers.TimeHelper.convertDate
 import com.example.playlistmaker.helpers.TimeHelper.convertTimeFromMillis
-import com.example.playlistmaker.model.Track
+import com.example.playlistmaker.data.dto.Track
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.Locale

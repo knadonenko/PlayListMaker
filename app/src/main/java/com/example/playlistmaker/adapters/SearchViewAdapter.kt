@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.api.SearchDiffCallBack
-import com.example.playlistmaker.model.Track
+import com.example.playlistmaker.data.dto.Track
 import com.example.playlistmaker.viewholders.SearchViewHolder
 
 class SearchViewAdapter(private val clickListener: TrackClickListener) : RecyclerView.Adapter<SearchViewHolder>() {

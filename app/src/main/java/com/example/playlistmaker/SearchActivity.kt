@@ -32,7 +32,7 @@ import com.example.playlistmaker.helpers.PlaceHolder.NOT_FOUND
 import com.example.playlistmaker.helpers.PlaceHolder.SEARCH_RESULT
 import com.example.playlistmaker.helpers.PlaceHolder.TRACKS_HISTORY
 import com.example.playlistmaker.helpers.SharedPrefsNames.HISTORY_PREFS
-import com.example.playlistmaker.model.Track
+import com.example.playlistmaker.data.dto.Track
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
