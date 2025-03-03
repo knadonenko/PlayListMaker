@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/settings_main_color"
     android:orientation="vertical"
-    tools:context=".SearchActivity">
+    tools:context=".presentation.search.SearchActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/search_toolbar"

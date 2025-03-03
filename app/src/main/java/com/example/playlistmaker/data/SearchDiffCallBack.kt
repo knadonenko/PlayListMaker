@@ -1,10 +1,10 @@
-package com.example.playlistmaker.api
+package com.example.playlistmaker.data
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.playlistmaker.data.dto.Track
+import com.example.playlistmaker.data.dto.TrackDto
 
-class SearchDiffCallBack(private val trackList: ArrayList<Track>,
-                         private val newTrackList: ArrayList<Track>) : DiffUtil.Callback() {
+class SearchDiffCallBack(private val trackList: ArrayList<TrackDto>,
+                         private val newTrackList: ArrayList<TrackDto>) : DiffUtil.Callback() {
 
     override fun getOldListSize() = trackList.size
 

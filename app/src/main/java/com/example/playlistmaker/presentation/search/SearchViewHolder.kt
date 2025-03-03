@@ -1,4 +1,4 @@
-package com.example.playlistmaker.viewholders
+package com.example.playlistmaker.presentation.search
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -7,13 +7,13 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.SearchItemBinding
 import com.example.playlistmaker.helpers.TimeHelper.convertTimeFromMillis
-import com.example.playlistmaker.data.dto.Track
+import com.example.playlistmaker.data.dto.TrackDto
 
 class SearchViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
     private val binding = SearchItemBinding.bind(itemView)
 
-    fun bind(track: Track) = with(binding) {
+    fun bind(track: TrackDto) = with(binding) {
         trackName.text = track.trackName
         artistName.text = track.artistName
         trackTime.text = convertTimeFromMillis(track.trackTimeMillis)
