@@ -19,11 +19,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.presentation.PlayerActivity
 import com.example.playlistmaker.R
 import com.example.playlistmaker.data.RetrofitHelper.retrofit
-import com.example.playlistmaker.presentation.SearchHistory
+import com.example.playlistmaker.data.dto.TrackDto
 import com.example.playlistmaker.data.dto.TrackSearchResponse
+import com.example.playlistmaker.data.network.SearchAPI
 import com.example.playlistmaker.helpers.AppConstants.SEARCH_DEBOUNCE_DELAY
 import com.example.playlistmaker.helpers.IntentConstants.TRACK
 import com.example.playlistmaker.helpers.PlaceHolder
@@ -33,8 +33,8 @@ import com.example.playlistmaker.helpers.PlaceHolder.NOT_FOUND
 import com.example.playlistmaker.helpers.PlaceHolder.SEARCH_RESULT
 import com.example.playlistmaker.helpers.PlaceHolder.TRACKS_HISTORY
 import com.example.playlistmaker.helpers.SharedPrefsNames.HISTORY_PREFS
-import com.example.playlistmaker.data.dto.TrackDto
-import com.example.playlistmaker.data.network.SearchAPI
+import com.example.playlistmaker.presentation.PlayerActivity
+import com.example.playlistmaker.presentation.SearchHistory
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback

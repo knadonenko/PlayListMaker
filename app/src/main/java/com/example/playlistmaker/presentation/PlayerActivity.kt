@@ -13,12 +13,12 @@ import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
+import com.example.playlistmaker.data.dto.TrackDto
 import com.example.playlistmaker.helpers.AppConstants.RELOAD_PROGRESS
 import com.example.playlistmaker.helpers.AppConstants.TIME_ZERO
 import com.example.playlistmaker.helpers.IntentConstants
 import com.example.playlistmaker.helpers.TimeHelper.convertDate
 import com.example.playlistmaker.helpers.TimeHelper.convertTimeFromMillis
-import com.example.playlistmaker.data.dto.TrackDto
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.Locale
