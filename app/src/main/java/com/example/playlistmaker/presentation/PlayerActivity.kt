@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation
 
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -12,12 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.playlistmaker.R
+import com.example.playlistmaker.data.dto.TrackDto
 import com.example.playlistmaker.helpers.AppConstants.RELOAD_PROGRESS
 import com.example.playlistmaker.helpers.AppConstants.TIME_ZERO
 import com.example.playlistmaker.helpers.IntentConstants
 import com.example.playlistmaker.helpers.TimeHelper.convertDate
 import com.example.playlistmaker.helpers.TimeHelper.convertTimeFromMillis
-import com.example.playlistmaker.model.Track
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -64,7 +65,7 @@ class PlayerActivity : AppCompatActivity() {
         }
 
         val track = Gson().fromJson(intent.getStringExtra(IntentConstants.TRACK),
-            Track::class.java)
+            TrackDto::class.java)
 
         mainHandler = Handler(Looper.getMainLooper())
 
@@ -128,7 +129,7 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    private fun preparePlayer(track: Track) {
+    private fun preparePlayer(track: TrackDto) {
         mediaPlayer.setDataSource(track.previewUrl)
         mediaPlayer.prepareAsync()
         mediaPlayer.setOnPreparedListener {

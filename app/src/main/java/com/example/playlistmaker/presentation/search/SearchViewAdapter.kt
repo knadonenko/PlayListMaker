@@ -1,17 +1,16 @@
-package com.example.playlistmaker.adapters
+package com.example.playlistmaker.presentation.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
-import com.example.playlistmaker.api.SearchDiffCallBack
-import com.example.playlistmaker.model.Track
-import com.example.playlistmaker.viewholders.SearchViewHolder
+import com.example.playlistmaker.data.SearchDiffCallBack
+import com.example.playlistmaker.data.dto.TrackDto
 
 class SearchViewAdapter(private val clickListener: TrackClickListener) : RecyclerView.Adapter<SearchViewHolder>() {
 
-    var tracks = ArrayList<Track>()
+    var tracks = ArrayList<TrackDto>()
         set(newTrackList) {
             val diffResult = DiffUtil.calculateDiff(
                 SearchDiffCallBack(field, newTrackList)
@@ -38,7 +37,7 @@ class SearchViewAdapter(private val clickListener: TrackClickListener) : Recycle
     override fun getItemCount() = tracks.size
 
     fun interface TrackClickListener {
-        fun onTrackClick(track: Track)
+        fun onTrackClick(track: TrackDto)
     }
 
 }
