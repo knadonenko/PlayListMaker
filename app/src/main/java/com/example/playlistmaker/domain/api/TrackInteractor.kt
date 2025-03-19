@@ -1,5 +1,5 @@
 package com.example.playlistmaker.domain.api
 
 interface TrackInteractor {
-    fun searchMovies(expression: String, consumer: SearchConsumer)
+    fun searchSongs(expression: String, consumer: SearchConsumer)
 }

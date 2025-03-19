@@ -1,4 +1,4 @@
-package com.example.playlistmaker.search
+package com.example.playlistmaker.search.ui
 
 import android.app.Application
 import android.os.Handler
@@ -27,7 +27,7 @@ class TrackSearchViewModel(application: Application): AndroidViewModel(applicati
 
     private var latestSearchText: String? = null
 
-    override fun onDestroy() {
+    fun onDestroy() {
         handler.removeCallbacksAndMessages(SEARCH_REQUEST_TOKEN)
     }
 
