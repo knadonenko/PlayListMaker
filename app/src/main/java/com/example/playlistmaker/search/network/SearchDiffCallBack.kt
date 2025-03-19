@@ -1,7 +1,7 @@
-package com.example.playlistmaker.data
+package com.example.playlistmaker.search.network
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.playlistmaker.data.dto.TrackDto
+import com.example.playlistmaker.search.model.TrackDto
 
 class SearchDiffCallBack(private val trackList: ArrayList<TrackDto>,
                          private val newTrackList: ArrayList<TrackDto>) : DiffUtil.Callback() {

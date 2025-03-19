@@ -1,4 +1,4 @@
-package com.example.playlistmaker.presentation.search
+package com.example.playlistmaker.search
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -20,10 +20,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
-import com.example.playlistmaker.data.RetrofitHelper.retrofit
-import com.example.playlistmaker.data.dto.TrackDto
-import com.example.playlistmaker.data.dto.TrackSearchResponse
-import com.example.playlistmaker.data.network.SearchAPI
+import com.example.playlistmaker.helpers.RetrofitHelper.retrofit
+import com.example.playlistmaker.search.model.TrackDto
+import com.example.playlistmaker.search.network.TrackSearchResponse
+import com.example.playlistmaker.search.network.SearchAPI
 import com.example.playlistmaker.helpers.AppConstants.SEARCH_DEBOUNCE_DELAY
 import com.example.playlistmaker.helpers.IntentConstants.TRACK
 import com.example.playlistmaker.helpers.PlaceHolder

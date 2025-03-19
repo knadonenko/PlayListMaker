@@ -9,6 +9,8 @@ import com.example.playlistmaker.helpers.SharedPrefsNames.PLAYLIST_MAKER_PREFS
 
 class App : Application() {
 
+    lateinit var themeSwitcherInteractor: SettingsInteractor
+
     var darkTheme = false
 
     override fun onCreate() {

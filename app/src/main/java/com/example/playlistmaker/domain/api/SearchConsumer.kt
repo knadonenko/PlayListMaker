@@ -1,7 +1,7 @@
 package com.example.playlistmaker.domain.api
 
-import com.example.playlistmaker.data.dto.TrackDto
+import com.example.playlistmaker.search.model.TrackDto
 
 interface SearchConsumer {
-    fun consume(foundMovies: List<TrackDto>)
+    fun consume(foundTracks: List<TrackDto>?, errorMessage: String?)
 }
