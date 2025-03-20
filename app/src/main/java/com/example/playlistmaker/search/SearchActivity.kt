@@ -32,7 +32,7 @@ import com.example.playlistmaker.helpers.PlaceHolder.LOADING
 import com.example.playlistmaker.helpers.PlaceHolder.NOT_FOUND
 import com.example.playlistmaker.helpers.PlaceHolder.SEARCH_RESULT
 import com.example.playlistmaker.helpers.PlaceHolder.TRACKS_HISTORY
-import com.example.playlistmaker.helpers.SharedPrefsNames.HISTORY_PREFS
+import com.example.playlistmaker.helpers.SharedPrefsConstants.HISTORY_PREFS
 import com.example.playlistmaker.presentation.PlayerActivity
 import com.example.playlistmaker.presentation.SearchHistory
 import com.google.gson.Gson

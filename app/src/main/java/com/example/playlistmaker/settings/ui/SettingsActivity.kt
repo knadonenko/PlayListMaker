@@ -3,16 +3,11 @@ package com.example.playlistmaker.settings.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.App
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.ActivitySettingsBinding
-import com.example.playlistmaker.helpers.SharedPrefsConstants.DARK_THEME_KEY
-import com.example.playlistmaker.helpers.SharedPrefsConstants.PLAYLIST_MAKER_PREFS
-import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -29,7 +24,6 @@ class SettingsActivity : AppCompatActivity() {
             SettingsViewModel.getViewModelFactory(application as App)
         )[SettingsViewModel::class.java]
 
-
         binding.settingsToolbar.setNavigationOnClickListener { finish() }
 
         binding.themeSwitcher.apply {
@@ -40,8 +34,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         binding.buttonSharing.setOnClickListener {
-            Intent().apply {
-                action = Intent.ACTION_SEND
+            Intent(Intent.ACTION_SEND).apply {
                 putExtra(Intent.EXTRA_TEXT, getString(R.string.link_to_share))
                 type = "text/plain"
                 startActivity(Intent.createChooser(this, null))
@@ -49,8 +42,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         binding.buttonSupport.setOnClickListener {
-            Intent().apply {
-                action = Intent.ACTION_SENDTO
+            Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:")
                 putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
                 intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_theme))
@@ -60,8 +52,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         binding.buttonUserAgreement.setOnClickListener {
-            Intent().apply {
-                action = Intent.ACTION_VIEW
+            Intent(Intent.ACTION_VIEW).apply {
                 intent.data = Uri.parse(getString(R.string.user_agreement_url))
                 startActivity(Intent.createChooser(intent, null))
             }
