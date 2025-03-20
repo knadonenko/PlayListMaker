@@ -20,16 +20,16 @@
             android:name=".search.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.MediatekActivity"
+            android:name=".mediateka.ui.MediatekActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.SettingsActivity"
+            android:name=".settings.ui.SettingsActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.PlayerActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".main.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

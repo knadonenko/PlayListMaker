@@ -1,4 +1,4 @@
-package com.example.playlistmaker.presentation
+package com.example.playlistmaker.settings.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -6,27 +6,40 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.App
 import com.example.playlistmaker.R
-import com.example.playlistmaker.helpers.SharedPrefsNames.DARK_THEME_KEY
-import com.example.playlistmaker.helpers.SharedPrefsNames.PLAYLIST_MAKER_PREFS
+import com.example.playlistmaker.databinding.ActivitySettingsBinding
+import com.example.playlistmaker.helpers.SharedPrefsConstants.DARK_THEME_KEY
+import com.example.playlistmaker.helpers.SharedPrefsConstants.PLAYLIST_MAKER_PREFS
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class SettingsActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySettingsBinding
+    private lateinit var viewModel: SettingsViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
-        findViewById<Toolbar>(R.id.settings_toolbar).setNavigationOnClickListener {
-            finish()
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        viewModel = ViewModelProvider(
+            this,
+            SettingsViewModel.getViewModelFactory(application as App)
+        )[SettingsViewModel::class.java]
+
+
+        binding.settingsToolbar.setNavigationOnClickListener { finish() }
+
+        binding.themeSwitcher.apply {
+            isChecked = viewModel.isDarkThemeOn()
+            setOnCheckedChangeListener { _, checked ->
+                viewModel.switchTheme(checked)
+            }
         }
-        val themeSwitcher = findViewById<SwitchMaterial>(R.id.themeSwitcher)
-        themeSwitcher.isChecked = getSharedPreferences(PLAYLIST_MAKER_PREFS.prefName, MODE_PRIVATE)
-            .getBoolean(DARK_THEME_KEY.prefName, false)
-        themeSwitcher.setOnCheckedChangeListener { _, checked ->
-            (applicationContext as App).switchTheme(checked)
-            (applicationContext as App).saveTheme(checked)
-        }
-        findViewById<Button>(R.id.button_sharing).setOnClickListener {
+
+        binding.buttonSharing.setOnClickListener {
             Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TEXT, getString(R.string.link_to_share))
@@ -34,7 +47,8 @@ class SettingsActivity : AppCompatActivity() {
                 startActivity(Intent.createChooser(this, null))
             }
         }
-        findViewById<Button>(R.id.button_support).setOnClickListener {
+
+        binding.buttonSupport.setOnClickListener {
             Intent().apply {
                 action = Intent.ACTION_SENDTO
                 data = Uri.parse("mailto:")
@@ -44,12 +58,14 @@ class SettingsActivity : AppCompatActivity() {
                 startActivity(Intent.createChooser(this, null))
             }
         }
-        findViewById<Button>(R.id.button_user_agreement).setOnClickListener() {
+
+        binding.buttonUserAgreement.setOnClickListener {
             Intent().apply {
                 action = Intent.ACTION_VIEW
                 intent.data = Uri.parse(getString(R.string.user_agreement_url))
                 startActivity(Intent.createChooser(intent, null))
             }
         }
+
     }
 }
