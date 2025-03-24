@@ -4,6 +4,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.App
+import com.example.playlistmaker.player.ui.PlayerViewModel
 
 class SettingsViewModel(application: App) : AndroidViewModel(application) {
 
@@ -20,9 +21,11 @@ class SettingsViewModel(application: App) : AndroidViewModel(application) {
     companion object {
         fun getViewModelFactory(application: App): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return modelClass.getConstructor(this::class.java)
-                        .newInstance(application)
+                    return SettingsViewModel(
+                        application
+                    ) as T
                 }
             }
     }

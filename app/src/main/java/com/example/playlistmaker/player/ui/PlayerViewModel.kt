@@ -42,9 +42,11 @@ class PlayerViewModel(track: TrackDto) : ViewModel() {
 
         fun getViewModelFactory(track: TrackDto): ViewModelProvider.Factory =
             object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return modelClass.getConstructor(this::class.java)
-                        .newInstance(track)
+                    return PlayerViewModel(
+                        track
+                    ) as T
                 }
             }
     }

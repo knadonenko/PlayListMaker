@@ -1,7 +1,9 @@
 package com.example.playlistmaker.search.data
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class TrackDto(
     val trackId: Int,
     val trackName: String,
@@ -13,7 +15,7 @@ data class TrackDto(
     val primaryGenreName: String,
     val country: String,
     val previewUrl: String
-) : Serializable {
+) : Parcelable {
 
     override fun equals(other: Any?): Boolean {
         return if (other !is TrackDto) {

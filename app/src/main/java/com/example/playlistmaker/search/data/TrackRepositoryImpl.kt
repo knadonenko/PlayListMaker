@@ -3,6 +3,9 @@ package com.example.playlistmaker.search.data
 import com.example.playlistmaker.search.network.TrackSearchResponse
 import com.example.playlistmaker.search.domain.TrackRepository
 import com.example.playlistmaker.helpers.ApiResponseConstants
+import com.example.playlistmaker.helpers.ApiResponseConstants.NO_INTERNET_CONNECTION_CODE
+import com.example.playlistmaker.helpers.ApiResponseConstants.NO_INTERNET_CONNECTION_MESSAGE
+import com.example.playlistmaker.helpers.ApiResponseConstants.SUCCESS_CODE
 import com.example.playlistmaker.search.network.NetworkClient
 import com.example.playlistmaker.util.Resource
 
@@ -17,12 +20,13 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient,
             )
         )
         return when (response.resultCode) {
-            ApiResponseConstants.NO_INTERNET_CONNECTION_CODE -> {
+            NO_INTERNET_CONNECTION_CODE -> {
                 Resource.Error(
-                    message = ApiResponseConstants.NO_INTERNET_CONNECTION_MESSAGE
+                    message = NO_INTERNET_CONNECTION_MESSAGE,
+                    code = NO_INTERNET_CONNECTION_CODE
                 )
             }
-            ApiResponseConstants.SUCCESS_CODE -> {
+            SUCCESS_CODE -> {
                 Resource.Success((response as TrackSearchResponse).results.map {
                     TrackDto(it.trackId,
                         it.trackName,
@@ -34,10 +38,11 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient,
                         it.primaryGenreName,
                         it.country,
                         it.previewUrl)
-                })
+                }, SUCCESS_CODE)
             }
             else -> {
-                Resource.Error(message = ApiResponseConstants.SERVER_ERROR.toString())
+                Resource.Error(message = ApiResponseConstants.SERVER_ERROR.toString(),
+                    code = response.resultCode)
             }
         }
     }
@@ -50,7 +55,7 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient,
         localStorage.clearHistory()
     }
 
-    override fun getHistory(): List<TrackDto> {
+    override fun getHistory(): ArrayList<TrackDto> {
         return localStorage.getHistory()
     }
 
