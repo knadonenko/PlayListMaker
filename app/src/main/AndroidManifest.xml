@@ -17,19 +17,19 @@
         android:supportsRtl="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.search.SearchActivity"
+            android:name=".search.ui.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.MediatekActivity"
+            android:name=".mediateka.ui.MediatekActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.SettingsActivity"
+            android:name=".settings.ui.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.PlayerActivity"
+            android:name=".player.ui.PlayerActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".main.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
