@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.playlistmaker.R
 import com.example.playlistmaker.mediateka.ui.MediatekActivity
 import com.example.playlistmaker.settings.ui.SettingsActivity
-import com.example.playlistmaker.search.SearchActivity
+import com.example.playlistmaker.search.ui.SearchActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

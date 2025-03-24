@@ -1,7 +1,7 @@
 package com.example.playlistmaker.player.data
 
 import android.media.MediaPlayer
-import com.example.playlistmaker.search.model.TrackDto
+import com.example.playlistmaker.search.data.TrackDto
 
 class PlayListMediaPlayer (track: TrackDto) : PlayerClient {
     private val mediaPlayer: MediaPlayer = MediaPlayer()

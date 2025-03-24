@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.databinding.ActivityPlayerBinding
 import com.example.playlistmaker.helpers.IntentConstants
-import com.example.playlistmaker.search.model.TrackDto
+import com.example.playlistmaker.search.data.TrackDto
 import com.google.gson.Gson
 
 class PlayerActivity : AppCompatActivity() {
@@ -24,7 +24,8 @@ class PlayerActivity : AppCompatActivity() {
             this,
             PlayerViewModel.getViewModelFactory(track = TrackDto(track.trackId, track.trackName,
                 track.artistName, track.trackTimeMillis, track.artworkUrl100, track.collectionName,
-                track.releaseDate, track.primaryGenreName, track.country, track.previewUrl))
+                track.releaseDate, track.primaryGenreName, track.country, track.previewUrl)
+            )
         )[PlayerViewModel::class.java]
 
         binding.playerToolbar.setNavigationOnClickListener {

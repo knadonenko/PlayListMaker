@@ -5,7 +5,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.ActivityPlayerBinding
 import com.example.playlistmaker.helpers.TimeHelper.convertDate
-import com.example.playlistmaker.search.model.TrackDto
+import com.example.playlistmaker.search.data.TrackDto
 import java.text.SimpleDateFormat
 import java.util.Locale
 

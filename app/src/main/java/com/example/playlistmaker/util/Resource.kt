@@ -1,6 +1,6 @@
 package com.example.playlistmaker.util
 
-sealed class Resource<T>(val data: T? = null, val message: String? = null) {
-    class Success<T>(data: T): Resource<T>(data)
-    class Error<T>(message: String, data: T? = null): Resource<T>(data, message)
+sealed class Resource<T>(val data: T? = null, val message: String? = null, val code: Int) {
+    class Success<T>(data: T, code: Int): Resource<T>(data, code = code)
+    class Error<T>(message: String, data: T? = null, code: Int): Resource<T>(data, message, code)
 }

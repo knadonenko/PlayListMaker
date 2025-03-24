@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.helpers.AppConstants.RELOAD_PROGRESS
-import com.example.playlistmaker.search.model.TrackDto
+import com.example.playlistmaker.search.data.TrackDto
 import java.text.SimpleDateFormat
 import java.util.Locale
 

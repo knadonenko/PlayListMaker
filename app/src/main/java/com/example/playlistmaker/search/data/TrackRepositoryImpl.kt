@@ -1,13 +1,13 @@
 package com.example.playlistmaker.search.data
 
-import com.example.playlistmaker.search.model.TrackDto
 import com.example.playlistmaker.search.network.TrackSearchResponse
-import com.example.playlistmaker.domain.api.TrackRepository
+import com.example.playlistmaker.search.domain.TrackRepository
 import com.example.playlistmaker.helpers.ApiResponseConstants
 import com.example.playlistmaker.search.network.NetworkClient
 import com.example.playlistmaker.util.Resource
 
-class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepository {
+class TrackRepositoryImpl(private val networkClient: NetworkClient,
+    private val localStorage: LocalStorage) : TrackRepository {
 
     override fun searchTracks(expression: String): Resource<List<TrackDto>> {
 
@@ -50,7 +50,7 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepos
         localStorage.clearHistory()
     }
 
-    override fun getHistory(): ArrayList<TrackDto> {
+    override fun getHistory(): List<TrackDto> {
         return localStorage.getHistory()
     }
 
