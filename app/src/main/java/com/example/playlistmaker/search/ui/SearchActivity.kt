@@ -1,6 +1,7 @@
 package com.example.playlistmaker.search.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -41,6 +42,8 @@ class SearchActivity : AppCompatActivity() {
 
         searchViewModel.apply {
 
+            Log.d("HISTORY", "onCreate: setting view model")
+
             observeState().observe(this@SearchActivity) {
                 render(it)
             }
@@ -58,12 +61,6 @@ class SearchActivity : AppCompatActivity() {
 
         binding.retryButton.setOnClickListener {
             searchViewModel.getTracks()
-        }
-
-        // history
-        binding.recyclerViewHistory.adapter = historyAdapter
-        binding.buttonClearHistory.setOnClickListener {
-            searchViewModel.clearHistory()
         }
 
         //search input
@@ -94,6 +91,14 @@ class SearchActivity : AppCompatActivity() {
         binding.clearForm.setOnClickListener {
             clearSearchForm()
         }
+
+        // history
+        binding.recyclerViewHistory.adapter = historyAdapter
+        binding.buttonClearHistory.setOnClickListener {
+            searchViewModel.clearHistory()
+        }
+
+        searchViewModel.showHistory()
 
         router = Router(this)
 
@@ -127,7 +132,7 @@ class SearchActivity : AppCompatActivity() {
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
-        searchViewModel.clearSearch()
+        searchViewModel.showHistory()
     }
 
     private fun clickOnTrack(track: TrackDto) {

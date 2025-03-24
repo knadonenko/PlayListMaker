@@ -101,8 +101,8 @@ class TrackSearchViewModel(application: Application) : AndroidViewModel(applicat
         tracksInteractor.addTrackToHistory(track)
     }
 
-    fun clearSearch() {
-        val historyTracks = showHistory()
+    fun showHistory() {
+        val historyTracks = getHistoryFromStorage()
         if (historyTracks.isNotEmpty()) {
             renderState(SearchScreenState.ShowHistory(historyTracks))
         } else {
@@ -113,10 +113,9 @@ class TrackSearchViewModel(application: Application) : AndroidViewModel(applicat
     fun clearHistory() {
         tracksInteractor.clearHistory()
         screenState.postValue(SearchScreenState.Success(arrayListOf()))
-
     }
 
-    private fun showHistory(): ArrayList<TrackDto> {
+    private fun getHistoryFromStorage(): ArrayList<TrackDto> {
         return tracksInteractor.getHistory()
     }
 
