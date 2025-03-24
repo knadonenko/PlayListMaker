@@ -49,7 +49,7 @@ sealed class PlayerState {
                 }
 
                 else -> {
-                    binding.playButton.setImageResource(R.drawable.play_circle)
+                    binding.playButton.setBackgroundResource(R.drawable.play_circle)
                 }
             }
         }
