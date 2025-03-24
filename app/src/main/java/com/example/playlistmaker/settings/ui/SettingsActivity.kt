@@ -29,6 +29,7 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.themeSwitcher.apply {
             isChecked = viewModel.isDarkThemeOn()
+            Log.d("ISCHECKED1111", "onCreate: $isChecked")
             setOnCheckedChangeListener { _, checked ->
                 Log.d("ISCHECKED", "onCreate: $checked")
                 Log.d("ISCHECKED!!!!", "onCreate: $isChecked")
