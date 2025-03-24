@@ -24,7 +24,7 @@ class SettingsViewModel(application: App) : AndroidViewModel(application) {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
                     return SettingsViewModel(
-                        application
+                        application = application
                     ) as T
                 }
             }

@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.example.playlistmaker.settings.domain.SettingsRepository
 
 class SettingsRepoImpl(private val themeStorage: ThemeStorage) : SettingsRepository {
+
     override fun switchTheme(isDarkMode: Boolean) {
         themeStorage.switchTheme(isDarkMode)
+        setCurrentTheme()
     }
 
     override fun isDarkModeOn(): Boolean {

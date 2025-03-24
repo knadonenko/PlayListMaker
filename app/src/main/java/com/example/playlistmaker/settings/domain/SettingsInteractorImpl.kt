@@ -1,6 +1,8 @@
 package com.example.playlistmaker.settings.domain
 
-class SettingsInteractorImpl(private val settingsRepository: SettingsRepository): SettingsInteractor {
+class SettingsInteractorImpl(private val settingsRepository: SettingsRepository):
+    SettingsInteractor {
+
     override fun switchTheme(isDarkMode: Boolean) {
         settingsRepository.switchTheme(isDarkModeOn())
     }

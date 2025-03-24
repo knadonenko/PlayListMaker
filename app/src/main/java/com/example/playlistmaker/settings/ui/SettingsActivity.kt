@@ -3,6 +3,7 @@ package com.example.playlistmaker.settings.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.App
@@ -29,6 +30,8 @@ class SettingsActivity : AppCompatActivity() {
         binding.themeSwitcher.apply {
             isChecked = viewModel.isDarkThemeOn()
             setOnCheckedChangeListener { _, checked ->
+                Log.d("ISCHECKED", "onCreate: $checked")
+                Log.d("ISCHECKED!!!!", "onCreate: $isChecked")
                 viewModel.switchTheme(checked)
             }
         }
@@ -54,7 +57,7 @@ class SettingsActivity : AppCompatActivity() {
         binding.buttonUserAgreement.setOnClickListener {
             Intent(Intent.ACTION_VIEW).apply {
                 intent.data = Uri.parse(getString(R.string.user_agreement_url))
-                startActivity(Intent.createChooser(intent, null))
+                startActivity(Intent.createChooser(this, null))
             }
         }
 
