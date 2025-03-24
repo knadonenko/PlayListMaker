@@ -1,7 +1,6 @@
 package com.example.playlistmaker.search.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -41,8 +40,6 @@ class SearchActivity : AppCompatActivity() {
         searchViewModel = ViewModelProvider(this)[TrackSearchViewModel::class.java]
 
         searchViewModel.apply {
-
-            Log.d("HISTORY", "onCreate: setting view model")
 
             observeState().observe(this@SearchActivity) {
                 render(it)

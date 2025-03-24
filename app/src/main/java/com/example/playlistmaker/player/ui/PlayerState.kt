@@ -45,7 +45,7 @@ sealed class PlayerState {
         override fun render(binding: ActivityPlayerBinding) {
             when (playerStateEnum) {
                 PlayerViewModel.PlayerStateEnum.STATE_PLAYING -> {
-                    binding.playButton.setImageResource(R.drawable.pause_circle)
+                    binding.playButton.setBackgroundResource(R.drawable.pause_circle)
                 }
 
                 else -> {
