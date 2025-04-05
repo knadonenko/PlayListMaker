@@ -2,8 +2,8 @@ package com.example.playlistmaker.search.ui
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.helpers.SharedPrefsConstants.HISTORY_TRACK
+import com.example.playlistmaker.search.data.TrackDto
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

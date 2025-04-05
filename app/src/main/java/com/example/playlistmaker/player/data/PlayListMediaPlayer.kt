@@ -1,16 +1,12 @@
 package com.example.playlistmaker.player.data
 
 import android.media.MediaPlayer
-import com.example.playlistmaker.search.data.TrackDto
 
-class PlayListMediaPlayer (track: TrackDto) : PlayerClient {
-    private val mediaPlayer: MediaPlayer = MediaPlayer()
-    init {
-        mediaPlayer.setDataSource(track.previewUrl)
+class PlayListMediaPlayer(private val mediaPlayer: MediaPlayer) : PlayerClient {
+
+    override fun preparePlayer(prepare: () -> Unit, dataSource: String) {
+        mediaPlayer.setDataSource(dataSource)
         mediaPlayer.prepareAsync()
-    }
-
-    override fun preparePlayer(prepare: () -> Unit) {
         mediaPlayer.setOnPreparedListener { prepare() }
     }
 

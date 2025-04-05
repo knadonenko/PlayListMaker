@@ -1,12 +1,12 @@
 package com.example.playlistmaker.search.data
 
-import com.example.playlistmaker.search.network.TrackSearchResponse
-import com.example.playlistmaker.search.domain.TrackRepository
 import com.example.playlistmaker.helpers.ApiResponseConstants
 import com.example.playlistmaker.helpers.ApiResponseConstants.NO_INTERNET_CONNECTION_CODE
 import com.example.playlistmaker.helpers.ApiResponseConstants.NO_INTERNET_CONNECTION_MESSAGE
 import com.example.playlistmaker.helpers.ApiResponseConstants.SUCCESS_CODE
+import com.example.playlistmaker.search.domain.TrackRepository
 import com.example.playlistmaker.search.network.NetworkClient
+import com.example.playlistmaker.search.network.TrackSearchResponse
 import com.example.playlistmaker.util.Resource
 
 class TrackRepositoryImpl(private val networkClient: NetworkClient,

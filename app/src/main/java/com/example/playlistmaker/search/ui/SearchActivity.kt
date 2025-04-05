@@ -7,7 +7,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.databinding.ActivitySearchBinding
 import com.example.playlistmaker.helpers.PlaceHolder
 import com.example.playlistmaker.helpers.PlaceHolder.ERROR
@@ -18,11 +17,12 @@ import com.example.playlistmaker.helpers.PlaceHolder.TRACKS_HISTORY
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.navigation.Router
 import com.example.playlistmaker.search.ui.adapter.SearchViewAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
-    private lateinit var searchViewModel: TrackSearchViewModel
+    private val searchViewModel by viewModel<TrackSearchViewModel>()
     private lateinit var router: Router
 
     private val historyAdapter = SearchViewAdapter {
@@ -37,7 +37,6 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        searchViewModel = ViewModelProvider(this)[TrackSearchViewModel::class.java]
 
         searchViewModel.apply {
 

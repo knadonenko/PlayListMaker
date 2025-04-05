@@ -1,21 +1,18 @@
 package com.example.playlistmaker.search.ui
 
-import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.playlistmaker.R
-import com.example.playlistmaker.creator.Creator
+import androidx.lifecycle.ViewModel
 import com.example.playlistmaker.helpers.AppConstants
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.domain.SearchConsumer
+import com.example.playlistmaker.search.domain.TrackInteractor
 
-class TrackSearchViewModel(application: Application) : AndroidViewModel(application) {
+class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewModel() {
 
-    private val tracksInteractor = Creator.provideTrackInteractor(getApplication())
     private val screenState = MutableLiveData<SearchScreenState>()
     private val showToast = SingleLiveEvent<String>()
     private val handler = Handler(Looper.getMainLooper())
@@ -66,7 +63,7 @@ class TrackSearchViewModel(application: Application) : AndroidViewModel(applicat
         handler.removeCallbacksAndMessages(SEARCH_REQUEST_TOKEN)
         query?.let {
             screenState.postValue(SearchScreenState.Loading)
-            tracksInteractor.searchSongs(query, object : SearchConsumer {
+            trackInteractor.searchSongs(query, object : SearchConsumer {
                 override fun consume(
                     foundTracks: List<TrackDto>?,
                     errorMessage: String?,
@@ -86,8 +83,7 @@ class TrackSearchViewModel(application: Application) : AndroidViewModel(applicat
                         else -> {
                             screenState.postValue(
                                 SearchScreenState.Error(
-                                    message = getApplication<Application>()
-                                        .getString(R.string.check_internet_connection),
+                                    message = errorMessage!!
                                 )
                             )
                         }
@@ -98,7 +94,7 @@ class TrackSearchViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     private fun addToHistory(track: TrackDto) {
-        tracksInteractor.addTrackToHistory(track)
+        trackInteractor.addTrackToHistory(track)
     }
 
     fun showHistory() {
@@ -111,12 +107,12 @@ class TrackSearchViewModel(application: Application) : AndroidViewModel(applicat
     }
 
     fun clearHistory() {
-        tracksInteractor.clearHistory()
+        trackInteractor.clearHistory()
         screenState.postValue(SearchScreenState.Success(arrayListOf()))
     }
 
     private fun getHistoryFromStorage(): ArrayList<TrackDto> {
-        return tracksInteractor.getHistory()
+        return trackInteractor.getHistory()
     }
 
     private fun renderState(state: SearchScreenState) {

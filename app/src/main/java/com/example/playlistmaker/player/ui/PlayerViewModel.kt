@@ -5,17 +5,15 @@ import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.playlistmaker.creator.Creator
 import com.example.playlistmaker.helpers.AppConstants.RELOAD_PROGRESS
+import com.example.playlistmaker.player.domain.PlayerInteractor
 import com.example.playlistmaker.search.data.TrackDto
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class PlayerViewModel(track: TrackDto) : ViewModel() {
+class PlayerViewModel(private val playerInteractor: PlayerInteractor) : ViewModel() {
     private val screenState = MutableLiveData<PlayerState>()
     val state: LiveData<PlayerState> = screenState
-    private val playerInteractor = Creator.providePlayerInteractor(track)
     private var playerStateEnum: PlayerStateEnum = PlayerStateEnum.STATE_DEFAULT
     private val handler: Handler = Handler(Looper.getMainLooper())
 
@@ -39,29 +37,17 @@ class PlayerViewModel(track: TrackDto) : ViewModel() {
 
     companion object {
         private val SEARCH_REQUEST_TOKEN = Any()
-
-        fun getViewModelFactory(track: TrackDto): ViewModelProvider.Factory =
-            object : ViewModelProvider.Factory {
-                @Suppress("UNCHECKED_CAST")
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return PlayerViewModel(
-                        track
-                    ) as T
-                }
-            }
     }
 
     init {
-        screenState.value = PlayerState.BeginningState(track)
-        preparePlayer()
         setOnCompletionListener()
     }
 
-    private fun preparePlayer() {
-        playerInteractor.preparePlayer {
+    private fun preparePlayer(trackDto: TrackDto) {
+        playerInteractor.preparePlayer({
             playerStateEnum = PlayerStateEnum.STATE_PREPARED
             screenState.value = PlayerState.Preparing()
-        }
+        }, trackDto.previewUrl)
     }
 
     private fun setOnCompletionListener() {
@@ -112,6 +98,11 @@ class PlayerViewModel(track: TrackDto) : ViewModel() {
 
             }
         }
+    }
+
+    fun setInitialTrack(trackDto: TrackDto) {
+        screenState.value = PlayerState.BeginningState(trackDto)
+        preparePlayer(trackDto)
     }
 
 }
