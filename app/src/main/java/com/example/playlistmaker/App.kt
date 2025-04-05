@@ -12,13 +12,10 @@ import org.koin.core.context.startKoin
 
 class App : Application() {
 
-//    lateinit var themeSwitcherInteractor: SettingsInteractor
-
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
-//            androidLogger(Level.DEBUG)
             androidContext(this@App)
             modules(
                 listOf(
@@ -30,7 +27,7 @@ class App : Application() {
             )
         }
         val settingsInteractor: SettingsInteractor by inject()
-        settingsInteractor.isDarkModeOn()
+        settingsInteractor.setCurrentTheme()
     }
 
 }
