@@ -2,16 +2,14 @@ package com.example.playlistmaker.player.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.playlistmaker.databinding.ActivityPlayerBinding
-import com.example.playlistmaker.helpers.AppConstants
 import com.example.playlistmaker.helpers.IntentConstants
 import com.example.playlistmaker.search.data.TrackDto
-import com.google.gson.Gson
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlayerActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: PlayerViewModel
+    private val viewModel by viewModel<PlayerViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,14 +17,6 @@ class PlayerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val track = intent.getParcelableExtra(IntentConstants.TRACK, TrackDto::class.java)
-
-        viewModel = ViewModelProvider(
-            this,
-            PlayerViewModel.getViewModelFactory(track = TrackDto(track!!.trackId, track.trackName,
-                track.artistName, track.trackTimeMillis, track.artworkUrl100, track.collectionName,
-                track.releaseDate, track.primaryGenreName, track.country, track.previewUrl)
-            )
-        )[PlayerViewModel::class.java]
 
         binding.playerToolbar.setNavigationOnClickListener {
             finish()
@@ -41,6 +31,8 @@ class PlayerActivity : AppCompatActivity() {
         viewModel.state.observe(this) {
             it.render(binding)
         }
+
+        viewModel.setInitialTrack(track!!)
     }
 
     override fun onPause() {

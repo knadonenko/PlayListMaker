@@ -3,8 +3,8 @@ package com.example.playlistmaker.player.data
 import com.example.playlistmaker.player.domain.PlayerRepository
 
 class PlayerRepositoryImpl(private val playerClient: PlayerClient) : PlayerRepository {
-    override fun preparePlayer(prepare: () -> Unit) {
-        playerClient.preparePlayer(prepare)
+    override fun preparePlayer(prepare: () -> Unit, dataSource: String) {
+        playerClient.preparePlayer(prepare, dataSource)
     }
 
     override fun setOnCompletionListener(onComplete: () -> Unit) {

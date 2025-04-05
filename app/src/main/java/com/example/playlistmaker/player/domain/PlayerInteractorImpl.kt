@@ -21,7 +21,7 @@ class PlayerInteractorImpl(private val playerRepository: PlayerRepository) : Pla
         return playerRepository.getCurrentTime()
     }
 
-    override fun preparePlayer(prepare: () -> Unit) {
-        playerRepository.preparePlayer(prepare)
+    override fun preparePlayer(prepare: () -> Unit, dataSource: String) {
+        playerRepository.preparePlayer(prepare, dataSource)
     }
 }
