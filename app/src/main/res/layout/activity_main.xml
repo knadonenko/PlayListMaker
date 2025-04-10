@@ -6,11 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:background="@color/main_background"
     tools:context=".main.ui.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/settings_toolbar"
+        android:id="@+id/library_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 

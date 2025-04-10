@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.playlistmaker.R
-import com.example.playlistmaker.mediateka.ui.MediatekActivity
+import com.example.playlistmaker.library.ui.LibraryActivity
 import com.example.playlistmaker.search.ui.SearchActivity
 import com.example.playlistmaker.settings.ui.SettingsActivity
 
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, SearchActivity::class.java))
         }
         val imageClickListener: View.OnClickListener = View.OnClickListener {
-            startActivity(Intent(this@MainActivity, MediatekActivity::class.java))
+            startActivity(Intent(this@MainActivity, LibraryActivity::class.java))
         }
         mediaTekButton.setOnClickListener(imageClickListener)
         settingsButton.setOnClickListener {
