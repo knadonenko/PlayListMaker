@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/colorSecondary"
+    android:fitsSystemWindows="true"
     android:theme="@style/Theme.PlaylistMaker">
 
     <androidx.appcompat.widget.Toolbar

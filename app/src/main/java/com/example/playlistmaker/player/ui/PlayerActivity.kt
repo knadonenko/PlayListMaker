@@ -1,6 +1,7 @@
 package com.example.playlistmaker.player.ui
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.playlistmaker.databinding.ActivityPlayerBinding
 import com.example.playlistmaker.helpers.IntentConstants
@@ -13,6 +14,7 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         val binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
