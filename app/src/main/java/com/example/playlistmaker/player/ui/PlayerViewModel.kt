@@ -8,10 +8,14 @@ import androidx.lifecycle.ViewModel
 import com.example.playlistmaker.helpers.AppConstants.RELOAD_PROGRESS
 import com.example.playlistmaker.player.domain.PlayerInteractor
 import com.example.playlistmaker.search.data.TrackDto
+import com.example.playlistmaker.search.domain.TrackInteractor
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class PlayerViewModel(private val playerInteractor: PlayerInteractor) : ViewModel() {
+class PlayerViewModel(
+    private val playerInteractor: PlayerInteractor,
+    private val trackInteractor: TrackInteractor
+) : ViewModel() {
     private val screenState = MutableLiveData<PlayerState>()
     val state: LiveData<PlayerState> = screenState
     private var playerStateEnum: PlayerStateEnum = PlayerStateEnum.STATE_DEFAULT
@@ -91,9 +95,11 @@ class PlayerViewModel(private val playerInteractor: PlayerInteractor) : ViewMode
             PlayerStateEnum.STATE_PLAYING -> {
                 pause()
             }
+
             PlayerStateEnum.STATE_PREPARED, PlayerStateEnum.STATE_PAUSED -> {
                 start()
             }
+
             PlayerStateEnum.STATE_DEFAULT -> {
 
             }
@@ -103,6 +109,12 @@ class PlayerViewModel(private val playerInteractor: PlayerInteractor) : ViewMode
     fun setInitialTrack(trackDto: TrackDto) {
         screenState.value = PlayerState.BeginningState(trackDto)
         preparePlayer(trackDto)
+    }
+
+    fun getTrack(): TrackDto {
+        return trackInteractor
+            .getHistory()
+            .first()
     }
 
 }
