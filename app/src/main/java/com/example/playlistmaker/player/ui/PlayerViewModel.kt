@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.playlistmaker.helpers.AppConstants.RELOAD_PROGRESS
 import com.example.playlistmaker.player.domain.PlayerInteractor
+import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.*
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.domain.TrackInteractor
 import java.text.SimpleDateFormat
@@ -18,7 +19,7 @@ class PlayerViewModel(
 ) : ViewModel() {
     private val screenState = MutableLiveData<PlayerState>()
     val state: LiveData<PlayerState> = screenState
-    private var playerStateEnum: PlayerStateEnum = PlayerStateEnum.STATE_DEFAULT
+    private var playerStateEnum: PlayerStateEnum = STATE_DEFAULT
     private val handler: Handler = Handler(Looper.getMainLooper())
 
     enum class PlayerStateEnum {
@@ -49,14 +50,14 @@ class PlayerViewModel(
 
     private fun preparePlayer(trackDto: TrackDto) {
         playerInteractor.preparePlayer({
-            playerStateEnum = PlayerStateEnum.STATE_PREPARED
+            playerStateEnum = STATE_PREPARED
             screenState.value = PlayerState.Preparing()
         }, trackDto.previewUrl)
     }
 
     private fun setOnCompletionListener() {
         playerInteractor.setOnCompletionListener {
-            playerStateEnum = PlayerStateEnum.STATE_PREPARED
+            playerStateEnum = STATE_PREPARED
             handler.removeCallbacks(timer)
             screenState.value = PlayerState.PlayCompleting()
         }
@@ -64,14 +65,14 @@ class PlayerViewModel(
 
     private fun start() {
         playerInteractor.start()
-        playerStateEnum = PlayerStateEnum.STATE_PLAYING
+        playerStateEnum = STATE_PLAYING
         handler.postDelayed(timer, RELOAD_PROGRESS)
         screenState.value = PlayerState.PlayButtonHandling(playerStateEnum)
     }
 
     fun pause() {
         playerInteractor.pause()
-        playerStateEnum = PlayerStateEnum.STATE_PAUSED
+        playerStateEnum = STATE_PAUSED
         handler.removeCallbacks(timer)
         screenState.value = PlayerState.PlayButtonHandling(playerStateEnum)
     }
@@ -92,15 +93,15 @@ class PlayerViewModel(
 
     fun playbackControl() {
         when (playerStateEnum) {
-            PlayerStateEnum.STATE_PLAYING -> {
+            STATE_PLAYING -> {
                 pause()
             }
 
-            PlayerStateEnum.STATE_PREPARED, PlayerStateEnum.STATE_PAUSED -> {
+            STATE_PREPARED, STATE_PAUSED -> {
                 start()
             }
 
-            PlayerStateEnum.STATE_DEFAULT -> {
+            STATE_DEFAULT -> {
 
             }
         }
