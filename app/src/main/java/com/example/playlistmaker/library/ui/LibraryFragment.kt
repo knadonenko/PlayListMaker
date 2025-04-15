@@ -18,7 +18,7 @@ class LibraryFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentLibraryBinding.inflate(inflater, container, false)
         return binding.root
     }
