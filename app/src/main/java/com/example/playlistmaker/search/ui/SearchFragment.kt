@@ -1,14 +1,18 @@
 package com.example.playlistmaker.search.ui
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
-import com.example.playlistmaker.databinding.ActivitySearchBinding
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.playlistmaker.R
+import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.helpers.PlaceHolder
 import com.example.playlistmaker.helpers.PlaceHolder.ERROR
 import com.example.playlistmaker.helpers.PlaceHolder.LOADING
@@ -16,15 +20,13 @@ import com.example.playlistmaker.helpers.PlaceHolder.NOT_FOUND
 import com.example.playlistmaker.helpers.PlaceHolder.SEARCH_RESULT
 import com.example.playlistmaker.helpers.PlaceHolder.TRACKS_HISTORY
 import com.example.playlistmaker.search.data.TrackDto
-import com.example.playlistmaker.search.navigation.Router
 import com.example.playlistmaker.search.ui.adapter.SearchViewAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchActivity : AppCompatActivity() {
+class SearchFragment : Fragment() {
 
-    private lateinit var binding: ActivitySearchBinding
+    private lateinit var binding: FragmentSearchBinding
     private val searchViewModel by viewModel<TrackSearchViewModel>()
-    private lateinit var router: Router
 
     private val historyAdapter = SearchViewAdapter {
         clickOnTrack(it)
@@ -34,25 +36,29 @@ class SearchActivity : AppCompatActivity() {
         clickOnTrack(it)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        binding = ActivitySearchBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         searchViewModel.apply {
 
-            observeState().observe(this@SearchActivity) {
+            observeState().observe(viewLifecycleOwner) {
                 render(it)
             }
 
-            observeShowToast().observe(this@SearchActivity) {
+            observeShowToast().observe(viewLifecycleOwner) {
                 showToast(it)
             }
 
         }
-
-        binding.searchToolbar.setNavigationOnClickListener { router.goBack() }
 
         // search
         binding.recyclerView.adapter = searchAdapter
@@ -63,7 +69,7 @@ class SearchActivity : AppCompatActivity() {
 
         //search input
         binding.inputSearchForm.doOnTextChanged { s: CharSequence?, _, _, _ ->
-            binding.clearForm.visibility = if(s.isNullOrEmpty()) View.GONE else View.VISIBLE
+            binding.clearForm.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
             if (binding.inputSearchForm.hasFocus() && s.toString().isNotEmpty()) {
                 showPlaceholder(SEARCH_RESULT)
             }
@@ -82,7 +88,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         binding.clearForm.visibility =
-            if(binding.inputSearchForm.text.isNullOrEmpty()) View.GONE else View.VISIBLE
+            if (binding.inputSearchForm.text.isNullOrEmpty()) View.GONE else View.VISIBLE
 
         binding.inputSearchForm.requestFocus()
 
@@ -97,9 +103,6 @@ class SearchActivity : AppCompatActivity() {
         }
 
         searchViewModel.showHistory()
-
-        router = Router(this)
-
     }
 
     private fun render(state: SearchScreenState) {
@@ -108,10 +111,12 @@ class SearchActivity : AppCompatActivity() {
                 searchAdapter.tracks = state.tracks
                 showPlaceholder(SEARCH_RESULT)
             }
+
             is SearchScreenState.ShowHistory -> {
                 historyAdapter.tracks = state.tracks
                 showPlaceholder(TRACKS_HISTORY)
             }
+
             is SearchScreenState.Error -> showPlaceholder(ERROR)
             is SearchScreenState.NothingFound -> showPlaceholder(NOT_FOUND)
             is SearchScreenState.Loading -> showPlaceholder(LOADING)
@@ -119,15 +124,15 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showToast(additionalMessage: String) {
-        Toast.makeText(this, additionalMessage, Toast.LENGTH_LONG).show()
+        Toast.makeText(requireActivity(), additionalMessage, Toast.LENGTH_LONG).show()
     }
 
     private fun clearSearchForm() {
         searchAdapter.tracks = arrayListOf()
         binding.inputSearchForm.setText("")
-        val view = this.currentFocus
+        val view = requireActivity().currentFocus
         if (view != null) {
-            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
         searchViewModel.showHistory()
@@ -136,7 +141,7 @@ class SearchActivity : AppCompatActivity() {
     private fun clickOnTrack(track: TrackDto) {
         if (searchViewModel.trackIsClickable.value == false) return
         searchViewModel.onSearchClicked(track)
-        router.openAudioPlayer(track)
+        findNavController().navigate(R.id.search_to_player_action)
     }
 
     private fun showPlaceholder(placeholder: PlaceHolder) {
@@ -148,6 +153,7 @@ class SearchActivity : AppCompatActivity() {
                 binding.placeholderCommunication.visibility = View.GONE
                 binding.progressCircular.visibility = View.GONE
             }
+
             ERROR -> {
                 binding.recyclerView.visibility = View.GONE
                 binding.historyList.visibility = View.GONE
@@ -155,6 +161,7 @@ class SearchActivity : AppCompatActivity() {
                 binding.placeholderCommunication.visibility = View.VISIBLE
                 binding.progressCircular.visibility = View.GONE
             }
+
             SEARCH_RESULT -> {
                 binding.recyclerView.visibility = View.VISIBLE
                 binding.historyList.visibility = View.GONE
@@ -162,6 +169,7 @@ class SearchActivity : AppCompatActivity() {
                 binding.placeholderCommunication.visibility = View.GONE
                 binding.progressCircular.visibility = View.GONE
             }
+
             TRACKS_HISTORY -> {
                 binding.recyclerView.visibility = View.GONE
                 binding.historyList.visibility = View.VISIBLE
@@ -169,6 +177,7 @@ class SearchActivity : AppCompatActivity() {
                 binding.placeholderCommunication.visibility = View.GONE
                 binding.progressCircular.visibility = View.GONE
             }
+
             LOADING -> {
                 binding.recyclerView.visibility = View.GONE
                 binding.historyList.visibility = View.GONE
@@ -187,11 +196,6 @@ class SearchActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(SAVED_SEARCH, binding.inputSearchForm.toString())
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        binding.inputSearchForm.setText(savedInstanceState.getString(SAVED_SEARCH, ""))
     }
 
     companion object {

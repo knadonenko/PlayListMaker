@@ -12,7 +12,7 @@ val viewModelModule = module {
 
     viewModel { SettingsViewModel(settingsInteractor = get()) }
     viewModel { TrackSearchViewModel(trackInteractor = get()) }
-    viewModel { PlayerViewModel(playerInteractor = get()) }
+    viewModel { PlayerViewModel(playerInteractor = get(), trackInteractor = get()) }
     viewModel { FavoritesViewModel() }
     viewModel { PlaylistsViewModel() }
 

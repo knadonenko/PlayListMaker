@@ -1,26 +1,32 @@
 package com.example.playlistmaker.settings.ui
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import com.example.playlistmaker.R
-import com.example.playlistmaker.databinding.ActivitySettingsBinding
+import com.example.playlistmaker.databinding.FragmentSettingsBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsFragment : Fragment() {
 
-    private lateinit var binding: ActivitySettingsBinding
+    private lateinit var binding: FragmentSettingsBinding
     private val viewModel by viewModel<SettingsViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        binding = ActivitySettingsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        binding.settingsToolbar.setNavigationOnClickListener { finish() }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.themeSwitcher.apply {
             isChecked = viewModel.isDarkThemeOn()
@@ -39,9 +45,9 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.buttonSupport.setOnClickListener {
             Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:")
+                data = "mailto:".toUri()
                 putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.support_email)))
-                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_theme))
+                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.email_theme))
                 putExtra(Intent.EXTRA_TEXT, getString(R.string.email_message))
                 startActivity(Intent.createChooser(this, null))
             }
@@ -49,7 +55,7 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.buttonUserAgreement.setOnClickListener {
             Intent(Intent.ACTION_VIEW).apply {
-                intent.data = Uri.parse(getString(R.string.user_agreement_url))
+                data = getString(R.string.user_agreement_url).toUri()
                 startActivity(Intent.createChooser(this, null))
             }
         }

@@ -25,7 +25,7 @@ class PlayListMediaPlayer(private val mediaPlayer: MediaPlayer) : PlayerClient {
     }
 
     override fun onDestroy() {
-        mediaPlayer.release()
+        mediaPlayer.reset()
     }
 
     override fun getCurrentTime(): Int {

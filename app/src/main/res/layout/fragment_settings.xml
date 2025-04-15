@@ -12,8 +12,7 @@
         android:id="@+id/settings_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginBottom="24dp"
-        app:navigationIcon="@drawable/arrow_back">
+        android:layout_marginBottom="24dp">
 
         <TextView
             android:layout_width="wrap_content"
