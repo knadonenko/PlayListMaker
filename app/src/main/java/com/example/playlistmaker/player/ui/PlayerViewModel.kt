@@ -1,14 +1,14 @@
 package com.example.playlistmaker.player.ui
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.playlistmaker.helpers.AppConstants.RELOAD_PROGRESS
 import com.example.playlistmaker.player.domain.PlayerInteractor
-import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.*
+import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_DEFAULT
+import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_PAUSED
+import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_PLAYING
+import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_PREPARED
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.domain.TrackInteractor
 import kotlinx.coroutines.Job
