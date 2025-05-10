@@ -30,7 +30,6 @@ class RootActivity : AppCompatActivity() {
                 R.id.audioPlayerFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
-
                 else -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE
                 }
