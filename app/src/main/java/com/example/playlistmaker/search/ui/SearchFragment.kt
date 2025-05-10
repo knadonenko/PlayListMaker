@@ -22,6 +22,7 @@ import com.example.playlistmaker.helpers.PlaceHolder.TRACKS_HISTORY
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.ui.adapter.SearchViewAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.toString
 
 class SearchFragment : Fragment() {
 
@@ -64,7 +65,7 @@ class SearchFragment : Fragment() {
         binding.recyclerView.adapter = searchAdapter
 
         binding.retryButton.setOnClickListener {
-            searchViewModel.getTracks()
+            searchViewModel.getTracks(binding.inputSearchForm.text.toString())
         }
 
         //search input
