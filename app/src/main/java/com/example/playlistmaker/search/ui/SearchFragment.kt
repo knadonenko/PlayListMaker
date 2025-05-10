@@ -139,7 +139,6 @@ class SearchFragment : Fragment() {
     }
 
     private fun clickOnTrack(track: TrackDto) {
-        if (searchViewModel.trackIsClickable.value == false) return
         searchViewModel.onSearchClicked(track)
         findNavController().navigate(R.id.search_to_player_action)
     }
@@ -190,7 +189,6 @@ class SearchFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        searchViewModel.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -5,6 +5,7 @@ import com.example.playlistmaker.helpers.AppConstants.MAX_TRACKS
 import com.example.playlistmaker.helpers.SharedPrefsConstants.HISTORY_TRACK
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import androidx.core.content.edit
 
 class TrackStorage(private val preferences: SharedPreferences) : LocalStorage {
     override fun addToHistory(track: TrackDto) {
@@ -29,17 +30,15 @@ class TrackStorage(private val preferences: SharedPreferences) : LocalStorage {
         }
 
         val json = Gson().toJson(searchedTracks)
-        preferences
-            .edit()
-            .putString(HISTORY_TRACK.prefName, json)
-            .apply()
+        preferences.edit {
+                putString(HISTORY_TRACK.prefName, json)
+            }
     }
 
     override fun clearHistory() {
-        preferences
-            .edit()
-            .clear()
-            .apply()
+        preferences.edit {
+                clear()
+            }
     }
 
     override fun getHistory(): ArrayList<TrackDto> {
