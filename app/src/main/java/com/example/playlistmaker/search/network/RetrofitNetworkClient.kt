@@ -34,6 +34,7 @@ class RetrofitNetworkClient(private val context: Context) : NetworkClient {
                 val response = itunesService.searchTrack(dto.expression)
                 response.apply { resultCode = 200 }
             } catch (e: Throwable) {
+                e.printStackTrace()
                 Response().apply { resultCode = 500 }
             }
         }

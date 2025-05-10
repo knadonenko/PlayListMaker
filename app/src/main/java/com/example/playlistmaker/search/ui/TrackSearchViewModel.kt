@@ -7,10 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.helpers.AppConstants
 import com.example.playlistmaker.search.data.TrackDto
-import com.example.playlistmaker.search.domain.SearchConsumer
 import com.example.playlistmaker.search.domain.TrackInteractor
 import com.example.playlistmaker.util.debounce
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewModel() {
