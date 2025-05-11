@@ -1,15 +1,19 @@
 package com.example.playlistmaker.player.ui
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.playlistmaker.helpers.AppConstants.RELOAD_PROGRESS
+import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.player.domain.PlayerInteractor
-import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.*
+import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_DEFAULT
+import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_PAUSED
+import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_PLAYING
+import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_PREPARED
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.domain.TrackInteractor
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -17,31 +21,18 @@ class PlayerViewModel(
     private val playerInteractor: PlayerInteractor,
     private val trackInteractor: TrackInteractor
 ) : ViewModel() {
+
     private val screenState = MutableLiveData<PlayerState>()
     val state: LiveData<PlayerState> = screenState
     private var playerStateEnum: PlayerStateEnum = STATE_DEFAULT
-    private val handler: Handler = Handler(Looper.getMainLooper())
+
+    private var timerJob: Job? = null
 
     enum class PlayerStateEnum {
         STATE_DEFAULT,
         STATE_PREPARED,
         STATE_PLAYING,
         STATE_PAUSED
-    }
-
-    private val timer =
-        object : Runnable {
-            override fun run() {
-                updateTimer(getCurrentPosition())
-                handler.postDelayed(
-                    this,
-                    RELOAD_PROGRESS,
-                )
-            }
-        }
-
-    companion object {
-        private val SEARCH_REQUEST_TOKEN = Any()
     }
 
     init {
@@ -58,7 +49,7 @@ class PlayerViewModel(
     private fun setOnCompletionListener() {
         playerInteractor.setOnCompletionListener {
             playerStateEnum = STATE_PREPARED
-            handler.removeCallbacks(timer)
+            timerJob?.cancel()
             screenState.value = PlayerState.PlayCompleting()
         }
     }
@@ -66,14 +57,24 @@ class PlayerViewModel(
     private fun start() {
         playerInteractor.start()
         playerStateEnum = STATE_PLAYING
-        handler.postDelayed(timer, RELOAD_PROGRESS)
-        screenState.value = PlayerState.PlayButtonHandling(playerStateEnum)
+        startTimer()
+    }
+
+    private fun startTimer() {
+        timerJob?.cancel()
+        timerJob = viewModelScope.launch {
+            while (playerStateEnum == STATE_PLAYING) {
+                delay(300L)
+                screenState.value = PlayerState.PlayButtonHandling(playerStateEnum)
+                updateTimer(getCurrentPosition())
+            }
+        }
     }
 
     fun pause() {
         playerInteractor.pause()
         playerStateEnum = STATE_PAUSED
-        handler.removeCallbacks(timer)
+        timerJob?.cancel()
         screenState.value = PlayerState.PlayButtonHandling(playerStateEnum)
     }
 
@@ -87,7 +88,6 @@ class PlayerViewModel(
     }
 
     fun onDestroy() {
-        handler.removeCallbacksAndMessages(SEARCH_REQUEST_TOKEN)
         playerInteractor.onDestroy()
     }
 
