@@ -35,10 +35,6 @@ class PlayerViewModel(
         STATE_PAUSED
     }
 
-    companion object {
-        private val SEARCH_REQUEST_TOKEN = Any()
-    }
-
     init {
         setOnCompletionListener()
     }
@@ -65,6 +61,7 @@ class PlayerViewModel(
     }
 
     private fun startTimer() {
+        timerJob?.cancel()
         timerJob = viewModelScope.launch {
             while (playerStateEnum == STATE_PLAYING) {
                 delay(300L)
