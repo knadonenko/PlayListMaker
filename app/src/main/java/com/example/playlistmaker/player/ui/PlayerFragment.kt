@@ -38,6 +38,12 @@ class PlayerFragment : Fragment() {
             }
         }
 
+        binding.addFavorites.apply {
+            setOnClickListener {
+                viewModel.addTrackToLiked(track)
+            }
+        }
+
         viewModel.state.observe(viewLifecycleOwner) {
             it.render(binding)
         }
