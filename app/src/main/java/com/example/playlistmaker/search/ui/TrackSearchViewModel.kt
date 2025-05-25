@@ -1,6 +1,5 @@
 package com.example.playlistmaker.search.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -75,7 +74,6 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
             }
 
             else -> {
-                Log.d("TRACKS!!!!!!!!!!!", tracks.toString())
                 renderState(SearchScreenState.Success(tracks = tracks))
             }
         }

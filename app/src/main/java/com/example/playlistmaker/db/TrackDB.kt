@@ -1,10 +1,8 @@
 package com.example.playlistmaker.db
 
-import android.util.Log
 import com.example.playlistmaker.search.data.TrackDto
 
-fun isTrackFavorite(trackDto: TrackDto) : Boolean {
-    Log.d("IS FAVORITE!!!!!!!", trackDto.liked.toString())
+fun isTrackFavorite(trackDto: TrackDto): Boolean {
     return trackDto.liked
 }
 
