@@ -4,6 +4,8 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
+import androidx.room.Room
+import com.example.playlistmaker.db.TrackDataBase
 import com.example.playlistmaker.helpers.SharedPrefsConstants
 import com.example.playlistmaker.player.data.PlayListMediaPlayer
 import com.example.playlistmaker.player.data.PlayerClient
@@ -31,6 +33,12 @@ val dataModule = module {
             SharedPrefsConstants.PLAYLIST_MAKER_PREFS.prefName,
             Context.MODE_PRIVATE
         )
+    }
+
+    single {
+        Room.databaseBuilder(androidContext(), TrackDataBase::class.java, "database.db")
+            .fallbackToDestructiveMigration(true)
+            .build()
     }
 
     single { ThemeStorage(sp = get()) }

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.playlistmaker.db.likedTracks
 import com.example.playlistmaker.player.domain.PlayerInteractor
 import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_DEFAULT
 import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_PAUSED
@@ -123,12 +122,12 @@ class PlayerViewModel(
         if (!track.liked) {
             track.liked = true
             trackInteractor.getHistory().first().liked = true
-            likedTracks.add(track)
+//            likedTracks.add(track)
             screenState.value = PlayerState.LikeTrack()
         } else {
             track.liked = false
             trackInteractor.getHistory().first().liked = false
-            likedTracks.remove(track)
+//            likedTracks.remove(track)
             screenState.value = PlayerState.UnlikeTrack()
         }
 

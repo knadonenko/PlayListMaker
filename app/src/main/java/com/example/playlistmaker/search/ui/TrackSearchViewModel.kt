@@ -21,7 +21,11 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
     fun observeShowToast(): LiveData<String> = showToast
 
     private val trackSearchDebounce =
-        debounce<String>(AppConstants.SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
+        debounce<String>(
+            AppConstants.TWO_SECONDS_DEBOUNCE_DELAY,
+            viewModelScope,
+            true
+        ) { changedText ->
             getTracks(changedText)
         }
 
@@ -66,7 +70,7 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
         when {
             errorMessage != null -> {
                 renderState(SearchScreenState.Error(message = errorMessage))
-                showToast.postValue(errorMessage)
+                showToast.postValue(errorMessage!!)
             }
 
             tracks.isEmpty() -> {
