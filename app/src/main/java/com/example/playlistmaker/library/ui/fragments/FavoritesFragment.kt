@@ -1,6 +1,5 @@
 package com.example.playlistmaker.library.ui.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,10 +46,6 @@ class FavoritesFragment : Fragment() {
         if (!viewModel.isClickable) return
         viewModel.onTrackClick()
         findNavController().navigate(R.id.search_to_player_action)
-//        val intent = Intent(requireContext(), AudioPlayerActivity::class.java).apply {
-//            putExtra(Constants.TRACK, track)
-//        }
-//        startActivity(intent)
     }
 
     private fun render(state: TrackLibraryState) {
