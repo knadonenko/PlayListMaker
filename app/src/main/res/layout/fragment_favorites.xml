@@ -6,19 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <LinearLayout
         android:id="@+id/nothing_found"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center"
         android:layout_marginTop="106dp"
-        android:src="@drawable/not_found"/>
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center"
+            android:src="@drawable/not_found"/>
 
-    <TextView
-        android:layout_marginTop="@dimen/margin_16"
-        android:layout_marginHorizontal="@dimen/margin_24"
-        style="@style/tabText"
-        android:text="@string/empty_library"/>
+        <TextView
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginHorizontal="@dimen/margin_24"
+            style="@style/tabText"
+            android:text="@string/empty_library"/>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorites_list"
