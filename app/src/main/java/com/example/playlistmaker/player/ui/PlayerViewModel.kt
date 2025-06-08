@@ -114,6 +114,7 @@ class PlayerViewModel(
 
     fun setInitialTrack(trackDto: TrackDto) {
         screenState.value = PlayerState.BeginningState(trackDto)
+        isTrackFavorite(trackDto)
         preparePlayer(trackDto)
     }
 
