@@ -8,7 +8,15 @@
         android:id="@+id/libraryFragment"
         android:name="com.example.playlistmaker.library.ui.LibraryFragment"
         android:label="@string/label_library"
-        tools:layout="@layout/fragment_library" />
+        tools:layout="@layout/fragment_library">
+        <action
+            android:id="@+id/favorites_to_player_action"
+            app:destination="@id/audioPlayerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/side_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/audioPlayerFragment"
         android:name="com.example.playlistmaker.player.ui.PlayerFragment"
@@ -21,19 +29,6 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/search_to_player_action"
-            app:destination="@id/audioPlayerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/side_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
-        android:id="@+id/favoritesFragment"
-        android:name="com.example.playlistmaker.library.ui.fragments.FavoritesFragment"
-        android:label="@string/label_favorites"
-        tools:layout="@layout/fragment_favorites" >
-        <action
-            android:id="@+id/favorites_to_player_action"
             app:destination="@id/audioPlayerFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/side_out_left"

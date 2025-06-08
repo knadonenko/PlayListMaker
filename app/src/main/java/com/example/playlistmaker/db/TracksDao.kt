@@ -9,7 +9,7 @@ import androidx.room.Query
 interface TracksDao {
 
     @Query("SELECT * FROM favorite_tracks ORDER BY saveDate DESC;")
-    suspend fun getFavoriteTracks(): ArrayList<TrackEntity>
+    suspend fun getFavoriteTracks(): List<TrackEntity>
 
     @Query("SELECT EXISTS(SELECT 1 FROM favorite_tracks WHERE trackId = :trackId)")
     suspend fun isFavorite(trackId: Int): Boolean

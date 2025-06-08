@@ -108,9 +108,7 @@ class PlayerViewModel(
                 start()
             }
 
-            STATE_DEFAULT -> {
-
-            }
+            STATE_DEFAULT -> {}
         }
     }
 
@@ -120,11 +118,7 @@ class PlayerViewModel(
     }
 
     fun getTrack(): TrackDto {
-        return trackInteractor.getHistory().first()
-    }
-
-    fun getTrackFromFavorites() {
-        return
+        return trackInteractor.getCurrentTrack()
     }
 
     fun addTrackToLiked(track: TrackDto) {

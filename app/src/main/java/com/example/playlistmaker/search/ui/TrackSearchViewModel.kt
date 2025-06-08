@@ -38,6 +38,7 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
     fun onSearchClicked(track: TrackDto) {
         trackOnClickDebounce()
         addToHistory(track)
+        trackInteractor.setCurrentTrack(track)
     }
 
     private fun trackOnClickDebounce() {

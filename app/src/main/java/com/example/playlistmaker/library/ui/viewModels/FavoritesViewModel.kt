@@ -8,10 +8,14 @@ import com.example.playlistmaker.helpers.AppConstants
 import com.example.playlistmaker.library.domain.LibraryInteractor
 import com.example.playlistmaker.library.ui.TrackLibraryState
 import com.example.playlistmaker.search.data.TrackDto
+import com.example.playlistmaker.search.domain.TrackInteractor
 import com.example.playlistmaker.util.debounce
 import kotlinx.coroutines.launch
 
-class FavoritesViewModel(private val interactor: LibraryInteractor) : ViewModel() {
+class FavoritesViewModel(
+    private val interactor: LibraryInteractor,
+    private val trackInteractor: TrackInteractor
+) : ViewModel() {
 
     private val contentStateLiveData = MutableLiveData<TrackLibraryState>()
     fun observeContentState(): LiveData<TrackLibraryState> = contentStateLiveData
@@ -42,15 +46,17 @@ class FavoritesViewModel(private val interactor: LibraryInteractor) : ViewModel(
             trackList.isEmpty() -> {
                 contentStateLiveData.value = TrackLibraryState.Empty
             }
+
             else -> {
                 contentStateLiveData.value = TrackLibraryState.FavoritesTracks(trackList)
             }
         }
     }
 
-    fun onTrackClick() {
+    fun onTrackClick(track: TrackDto) {
         isClickable = false
         trackClickDebounce(true)
+        trackInteractor.setCurrentTrack(track)
     }
 
 }

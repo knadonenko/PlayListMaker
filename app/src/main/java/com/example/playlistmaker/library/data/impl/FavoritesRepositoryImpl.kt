@@ -20,7 +20,7 @@ class FavoritesRepositoryImpl(private val database: TrackDataBase) : LibraryRepo
     override fun getFavoritesTracks(): Flow<ArrayList<TrackDto>> = flow {
         val tracks = database
             .tracksDao().getFavoriteTracks()
-        emit(convertFromTrackEntity(tracks))
+        emit(convertFromTrackEntity(tracks as ArrayList<TrackEntity>))
     }
 
     override fun isFavorite(trackId: Int): Flow<Boolean> = flow {

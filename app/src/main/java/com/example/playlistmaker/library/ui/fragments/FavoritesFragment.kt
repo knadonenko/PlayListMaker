@@ -44,8 +44,8 @@ class FavoritesFragment : Fragment() {
 
     private fun clickOnTrack(track: TrackDto) {
         if (!viewModel.isClickable) return
-        viewModel.onTrackClick()
-        findNavController().navigate(R.id.search_to_player_action)
+        viewModel.onTrackClick(track)
+        findNavController().navigate(R.id.favorites_to_player_action)
     }
 
     private fun render(state: TrackLibraryState) {
