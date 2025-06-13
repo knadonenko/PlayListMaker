@@ -60,6 +60,7 @@
     <string name="my_playlists">my_playlists</string>
     <string name="created">создан</string>
     <string name="added">Добавлено в плейлист</string>
+    <string name="add_to_playlist">Добавлено в плейлист</string>
     <string name="already_added">Трек уже добавлен в плейлист</string>
     <string name="title_playlist_dialog">Завершить создание плейлиста?</string>
     <string name="message_playlist_dialog">Все несохраненные данные будут потеряны</string>
