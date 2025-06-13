@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.playlistmaker.library.domain.LibraryInteractor
 import com.example.playlistmaker.player.domain.PlayerInteractor
 import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_DEFAULT
 import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_PAUSED
@@ -11,6 +12,7 @@ import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE
 import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_PREPARED
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.domain.TrackInteractor
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -19,7 +21,8 @@ import java.util.Locale
 
 class PlayerViewModel(
     private val playerInteractor: PlayerInteractor,
-    private val trackInteractor: TrackInteractor
+    private val trackInteractor: TrackInteractor,
+    private val libraryInteractor: LibraryInteractor
 ) : ViewModel() {
 
     private val screenState = MutableLiveData<PlayerState>()
@@ -27,6 +30,10 @@ class PlayerViewModel(
     private var playerStateEnum: PlayerStateEnum = STATE_DEFAULT
 
     private var timerJob: Job? = null
+    private var isFavorite: Boolean = false
+
+    private val isFavoriteLiveData = MutableLiveData<Boolean>()
+    fun observeFavoriteState(): LiveData<Boolean> = isFavoriteLiveData
 
     enum class PlayerStateEnum {
         STATE_DEFAULT,
@@ -101,21 +108,41 @@ class PlayerViewModel(
                 start()
             }
 
-            STATE_DEFAULT -> {
-
-            }
+            STATE_DEFAULT -> {}
         }
     }
 
     fun setInitialTrack(trackDto: TrackDto) {
         screenState.value = PlayerState.BeginningState(trackDto)
+        isTrackFavorite(trackDto)
         preparePlayer(trackDto)
     }
 
     fun getTrack(): TrackDto {
-        return trackInteractor
-            .getHistory()
-            .first()
+        return trackInteractor.getCurrentTrack()
+    }
+
+    fun addTrackToLiked(track: TrackDto) {
+        isFavorite = !isFavorite
+        isFavoriteLiveData.value = isFavorite
+        viewModelScope.launch(Dispatchers.IO) {
+            if (isFavorite) {
+                libraryInteractor.saveTrack(track)
+            }
+            else {
+                libraryInteractor.deleteTrack(track.trackId)
+            }
+        }
+    }
+
+    fun isTrackFavorite(trackDto: TrackDto) {
+        viewModelScope.launch(Dispatchers.IO) {
+            libraryInteractor.isFavorite(trackDto.trackId)
+                .collect {
+                    isFavorite = it
+                    isFavoriteLiveData.postValue(isFavorite)
+                }
+        }
     }
 
 }

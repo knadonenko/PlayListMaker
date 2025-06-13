@@ -8,4 +8,6 @@ interface TrackInteractor {
     fun addTrackToHistory(track: TrackDto)
     fun clearHistory()
     fun getHistory(): ArrayList<TrackDto>
+    fun setCurrentTrack(track: TrackDto)
+    fun getCurrentTrack(): TrackDto
 }

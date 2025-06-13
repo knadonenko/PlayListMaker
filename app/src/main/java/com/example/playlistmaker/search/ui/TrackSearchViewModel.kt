@@ -1,6 +1,5 @@
 package com.example.playlistmaker.search.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,8 +20,19 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
 
     fun observeShowToast(): LiveData<String> = showToast
 
+    init {
+        val history = showHistory()
+        if (history.isNotEmpty()) {
+            renderState(SearchScreenState.ShowHistory(history))
+        }
+    }
+
     private val trackSearchDebounce =
-        debounce<String>(AppConstants.SEARCH_DEBOUNCE_DELAY, viewModelScope, true) { changedText ->
+        debounce<String>(
+            AppConstants.TWO_SECONDS_DEBOUNCE_DELAY,
+            viewModelScope,
+            true
+        ) { changedText ->
             getTracks(changedText)
         }
 
@@ -35,6 +45,7 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
     fun onSearchClicked(track: TrackDto) {
         trackOnClickDebounce()
         addToHistory(track)
+        trackInteractor.setCurrentTrack(track)
     }
 
     private fun trackOnClickDebounce() {
@@ -67,7 +78,7 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
         when {
             errorMessage != null -> {
                 renderState(SearchScreenState.Error(message = errorMessage))
-                showToast.postValue(errorMessage)
+                showToast.postValue(errorMessage!!)
             }
 
             tracks.isEmpty() -> {
@@ -75,7 +86,6 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
             }
 
             else -> {
-                Log.d("TRACKS!!!!!!!!!!!", tracks.toString())
                 renderState(SearchScreenState.Success(tracks = tracks))
             }
         }
@@ -86,13 +96,8 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
         trackInteractor.addTrackToHistory(track)
     }
 
-    fun showHistory() {
-        val historyTracks = getHistoryFromStorage()
-        if (historyTracks.isNotEmpty()) {
-            renderState(SearchScreenState.ShowHistory(historyTracks))
-        } else {
-            renderState(SearchScreenState.Success(arrayListOf()))
-        }
+    private fun showHistory(): List<TrackDto> {
+        return trackInteractor.getHistory()
     }
 
     fun clearHistory() {
@@ -100,12 +105,17 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
         screenState.postValue(SearchScreenState.Success(arrayListOf()))
     }
 
-    private fun getHistoryFromStorage(): ArrayList<TrackDto> {
-        return trackInteractor.getHistory()
-    }
-
     private fun renderState(state: SearchScreenState) {
         screenState.postValue(state)
+    }
+
+    fun clearSearch() {
+        val historyTracks = showHistory()
+        if (historyTracks.isNotEmpty()) {
+            renderState(SearchScreenState.ShowHistory(historyTracks))
+        } else {
+            renderState(SearchScreenState.Success(listOf()))
+        }
     }
 
 }

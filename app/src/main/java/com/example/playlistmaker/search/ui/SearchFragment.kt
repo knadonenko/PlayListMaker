@@ -2,6 +2,7 @@ package com.example.playlistmaker.search.ui
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.ui.adapter.SearchViewAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.toString
+import androidx.core.view.isVisible
 
 class SearchFragment : Fragment() {
 
@@ -58,7 +60,6 @@ class SearchFragment : Fragment() {
             observeShowToast().observe(viewLifecycleOwner) {
                 showToast(it)
             }
-
         }
 
         // search
@@ -71,7 +72,8 @@ class SearchFragment : Fragment() {
         //search input
         binding.inputSearchForm.doOnTextChanged { s: CharSequence?, _, _, _ ->
             binding.clearForm.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
-            if (binding.inputSearchForm.hasFocus() && s.toString().isNotEmpty()) {
+            if (binding.inputSearchForm.hasFocus()
+                && s.toString().isNotEmpty()) {
                 showPlaceholder(SEARCH_RESULT)
             }
             searchViewModel.searchDebounce(binding.inputSearchForm.text.toString())
@@ -102,19 +104,17 @@ class SearchFragment : Fragment() {
         binding.buttonClearHistory.setOnClickListener {
             searchViewModel.clearHistory()
         }
-
-        searchViewModel.showHistory()
     }
 
     private fun render(state: SearchScreenState) {
         when (state) {
             is SearchScreenState.Success -> {
-                searchAdapter.tracks = state.tracks
+                searchAdapter.tracks = state.tracks as ArrayList<TrackDto>
                 showPlaceholder(SEARCH_RESULT)
             }
 
             is SearchScreenState.ShowHistory -> {
-                historyAdapter.tracks = state.tracks
+                historyAdapter.tracks = state.tracks as ArrayList<TrackDto>
                 showPlaceholder(TRACKS_HISTORY)
             }
 
@@ -136,7 +136,7 @@ class SearchFragment : Fragment() {
             val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
-        searchViewModel.showHistory()
+        searchViewModel.clearSearch()
     }
 
     private fun clickOnTrack(track: TrackDto) {
@@ -186,10 +186,6 @@ class SearchFragment : Fragment() {
                 binding.progressCircular.visibility = View.VISIBLE
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

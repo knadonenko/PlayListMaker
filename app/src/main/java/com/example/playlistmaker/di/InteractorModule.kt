@@ -1,5 +1,7 @@
 package com.example.playlistmaker.di
 
+import com.example.playlistmaker.library.domain.LibraryInteractor
+import com.example.playlistmaker.library.domain.impl.FavoritesInteractorImpl
 import com.example.playlistmaker.player.domain.PlayerInteractor
 import com.example.playlistmaker.player.domain.PlayerInteractorImpl
 import com.example.playlistmaker.search.domain.TrackInteractor
@@ -16,5 +18,6 @@ val interactorModule = module {
     singleOf(::PlayerInteractorImpl).bind<PlayerInteractor>()
     singleOf(::TrackInteractorImpl).bind<TrackInteractor>()
     singleOf(::SettingsInteractorImpl).bind<SettingsInteractor>()
+    singleOf(::FavoritesInteractorImpl).bind<LibraryInteractor>()
 
 }

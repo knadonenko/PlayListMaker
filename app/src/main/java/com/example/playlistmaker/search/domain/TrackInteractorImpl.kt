@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.map
 
 class TrackInteractorImpl(private val repository: TrackRepository) : TrackInteractor {
 
+    private var currentTrack: TrackDto? = null
+
     override fun searchSongs(expression: String) : Flow<Pair<List<TrackDto>?, String?>> {
         return repository.searchTracks(expression).map { result ->
             Log.d("RESULT", result.toString())
@@ -33,5 +35,13 @@ class TrackInteractorImpl(private val repository: TrackRepository) : TrackIntera
 
     override fun getHistory(): ArrayList<TrackDto> {
         return repository.getHistory()
+    }
+
+    override fun setCurrentTrack(track: TrackDto) {
+        currentTrack = track
+    }
+
+    override fun getCurrentTrack(): TrackDto {
+        return currentTrack!!
     }
 }

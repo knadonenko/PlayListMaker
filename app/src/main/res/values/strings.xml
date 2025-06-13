@@ -42,6 +42,7 @@
     //Fragment labels
     <string name="label_library">LibraryFragment</string>
     <string name="label_search">SearchFragment</string>
+    <string name="label_favorites">FavoritesFragment</string>
     <string name="label_settings">SettingsFragment</string>
     <string name="label_player">AudioPlayerFragment</string>
 </resources>
