@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentFavoritesBinding
-import com.example.playlistmaker.library.ui.TrackLibraryState
+import com.example.playlistmaker.library.ui.states.TrackLibraryState
 import com.example.playlistmaker.library.ui.viewModels.FavoritesViewModel
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.ui.adapter.SearchViewAdapter

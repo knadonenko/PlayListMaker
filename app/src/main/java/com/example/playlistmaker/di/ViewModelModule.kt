@@ -1,20 +1,23 @@
 package com.example.playlistmaker.di
 
+import com.example.playlistmaker.library.ui.viewModels.BottomSheetViewModel
 import com.example.playlistmaker.library.ui.viewModels.FavoritesViewModel
 import com.example.playlistmaker.library.ui.viewModels.PlaylistsViewModel
+import com.example.playlistmaker.library.ui.viewModels.NewPlayListViewModel
 import com.example.playlistmaker.player.ui.PlayerViewModel
 import com.example.playlistmaker.search.ui.TrackSearchViewModel
 import com.example.playlistmaker.settings.ui.SettingsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val viewModelModule = module {
-
-    viewModel { SettingsViewModel(settingsInteractor = get()) }
-    viewModel { TrackSearchViewModel(trackInteractor = get()) }
-    viewModel { PlayerViewModel(playerInteractor = get(), trackInteractor = get(),
-        libraryInteractor = get()) }
-    viewModel { FavoritesViewModel(interactor = get(), trackInteractor = get()) }
-    viewModel { PlaylistsViewModel() }
-
+    viewModelOf(::SettingsViewModel).bind()
+    viewModelOf(::TrackSearchViewModel).bind()
+    viewModelOf(::PlayerViewModel).bind()
+    viewModelOf(::FavoritesViewModel).bind()
+    viewModelOf(::PlaylistsViewModel).bind()
+    viewModelOf(::NewPlayListViewModel).bind()
+    viewModelOf(::BottomSheetViewModel).bind()
 }

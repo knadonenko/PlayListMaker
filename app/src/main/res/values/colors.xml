@@ -30,4 +30,7 @@
     <color name="player_button_additional">#40000000</color>
     <color name="player_button">#000000</color>
     <color name="player_progress_text">#000000</color>
+
+    <color name="input_border">#AEAFB4</color>
+    <color name="snackbar">#FFFFFF</color>
 </resources>

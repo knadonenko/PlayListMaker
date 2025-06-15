@@ -12,7 +12,6 @@ import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE
 import com.example.playlistmaker.player.ui.PlayerViewModel.PlayerStateEnum.STATE_PREPARED
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.domain.TrackInteractor
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -125,7 +124,7 @@ class PlayerViewModel(
     fun addTrackToLiked(track: TrackDto) {
         isFavorite = !isFavorite
         isFavoriteLiveData.value = isFavorite
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             if (isFavorite) {
                 libraryInteractor.saveTrack(track)
             }
@@ -135,8 +134,8 @@ class PlayerViewModel(
         }
     }
 
-    fun isTrackFavorite(trackDto: TrackDto) {
-        viewModelScope.launch(Dispatchers.IO) {
+    private fun isTrackFavorite(trackDto: TrackDto) {
+        viewModelScope.launch {
             libraryInteractor.isFavorite(trackDto.trackId)
                 .collect {
                     isFavorite = it

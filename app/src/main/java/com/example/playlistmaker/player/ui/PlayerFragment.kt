@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentPlayerBinding
+import com.example.playlistmaker.library.ui.fragments.PlayListBottomSheet
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlayerFragment : Fragment() {
@@ -47,6 +48,12 @@ class PlayerFragment : Fragment() {
             setOnClickListener {
                 viewModel.addTrackToLiked(track)
             }
+        }
+
+        binding.addPlayList.setOnClickListener {
+            findNavController().navigate(
+                R.id.audioPlayerFragment_to_bottomSheet, PlayListBottomSheet.createArgs(track)
+            )
         }
 
         viewModel.state.observe(viewLifecycleOwner) {
