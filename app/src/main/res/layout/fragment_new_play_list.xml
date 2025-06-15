@@ -89,6 +89,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/playlist_name"
+            android:textCursorDrawable="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ys_display_medium"
