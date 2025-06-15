@@ -88,9 +88,7 @@ class PlaylistsFragment : Fragment() {
     private fun clickOnPlaylist() {
         if (!viewModel.isClickable) return
         viewModel.onPlaylistClick()
-        Toast
-            .makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT)
-            .show()
+        Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

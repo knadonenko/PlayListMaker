@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class PlaylistsViewModel(private val interactor: PlaylistsInteractor): ViewModel() {
+class PlaylistsViewModel(private val interactor: PlaylistsInteractor) : ViewModel() {
 
     private val _contentFlow: MutableStateFlow<PlayListState> =
         MutableStateFlow(PlayListState.Empty)
@@ -23,8 +23,7 @@ class PlaylistsViewModel(private val interactor: PlaylistsInteractor): ViewModel
 
     private fun fillData() {
         viewModelScope.launch {
-            interactor
-                .getPlaylists()
+            interactor.getPlaylists()
                 .collect { playlists ->
                     processResult(playlists)
                 }

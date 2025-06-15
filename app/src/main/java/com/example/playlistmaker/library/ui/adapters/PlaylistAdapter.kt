@@ -23,8 +23,10 @@ class PlaylistAdapter(private val clickListener: PlaylistClickListener) :
 
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
         val playlistItem = playlists[holder.adapterPosition]
-        holder.bind(playlistItem)
-        holder.itemView.setOnClickListener { clickListener.onTrackClick(playlistItem) }
+        holder.apply {
+            bind(playlistItem)
+            itemView.setOnClickListener { clickListener.onTrackClick(playlistItem) }
+        }
     }
 
     fun interface PlaylistClickListener {
