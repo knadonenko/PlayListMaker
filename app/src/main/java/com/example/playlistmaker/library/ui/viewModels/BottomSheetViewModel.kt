@@ -33,8 +33,7 @@ class BottomSheetViewModel(private val interactor: PlaylistsInteractor) : ViewMo
 
     private fun fillData() {
         viewModelScope.launch {
-            interactor
-                .getPlaylists()
+            interactor.getPlaylists()
                 .collect { playlists ->
                     processResult(playlists)
                 }

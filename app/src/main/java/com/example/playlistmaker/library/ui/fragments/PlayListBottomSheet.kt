@@ -15,8 +15,8 @@ import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.BottomSheetBinding
 import com.example.playlistmaker.helpers.IntentConstants.TRACK
 import com.example.playlistmaker.library.data.Playlist
-import com.example.playlistmaker.library.ui.states.BottomSheetState
 import com.example.playlistmaker.library.ui.adapters.BottomSheetAdapter
+import com.example.playlistmaker.library.ui.states.BottomSheetState
 import com.example.playlistmaker.library.ui.viewModels.BottomSheetViewModel
 import com.example.playlistmaker.search.data.TrackDto
 import com.google.android.material.R.id.design_bottom_sheet
@@ -28,9 +28,6 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
-// TODO: Customize parameter argument names
-const val ARG_ITEM_COUNT = "item_count"
 
 class PlayListBottomSheet : BottomSheetDialogFragment() {
 
@@ -119,6 +116,7 @@ class PlayListBottomSheet : BottomSheetDialogFragment() {
         playlistsAdapter.apply {
             list.clear()
             list.addAll(content)
+            notifyDataSetChanged()
         }
     }
 
@@ -138,7 +136,7 @@ class PlayListBottomSheet : BottomSheetDialogFragment() {
     private fun getWindowHeight(): Int {
         val displayMetrics = DisplayMetrics()
 
-        @Suppress("DEPRECATION") requireActivity().windowManager.defaultDisplay.getMetrics(
+        requireActivity().windowManager.defaultDisplay.getMetrics(
             displayMetrics
         )
 
