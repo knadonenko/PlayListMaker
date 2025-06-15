@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.example.playlistmaker.R
@@ -24,6 +25,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -100,10 +102,9 @@ class PlayListBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun showMessage(message: String) {
-        Snackbar
-            .make(
+        Snackbar.make(
                 requireContext(),
-                requireActivity().findViewById(R.id.container),
+                requireActivity().findViewById(R.id.player),
                 message,
                 Snackbar.LENGTH_SHORT
             )
@@ -146,13 +147,9 @@ class PlayListBottomSheet : BottomSheetDialogFragment() {
 
     companion object {
 
-        // TODO: Customize parameters
-        fun newInstance(itemCount: Int): PlayListBottomSheet =
-            PlayListBottomSheet().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_ITEM_COUNT, itemCount)
-                }
-            }
+        fun createArgs(track: TrackDto): Bundle = bundleOf(
+            TRACK to Json.encodeToString(track)
+        )
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.playlistmaker.di
 
+import com.example.playlistmaker.library.ui.viewModels.BottomSheetViewModel
 import com.example.playlistmaker.library.ui.viewModels.FavoritesViewModel
 import com.example.playlistmaker.library.ui.viewModels.PlaylistsViewModel
 import com.example.playlistmaker.library.ui.viewModels.NewPlayListViewModel
@@ -20,5 +21,5 @@ val viewModelModule = module {
     viewModelOf(::FavoritesViewModel).bind()
     viewModelOf(::PlaylistsViewModel).bind()
     viewModelOf(::NewPlayListViewModel).bind()
-
+    viewModelOf(::BottomSheetViewModel).bind()
 }
