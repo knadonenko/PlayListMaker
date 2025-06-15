@@ -75,6 +75,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/playlist_name_container"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -89,7 +90,6 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/playlist_name"
-            android:textCursorDrawable="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ys_display_medium"
@@ -103,6 +103,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/playlist_description_container"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
