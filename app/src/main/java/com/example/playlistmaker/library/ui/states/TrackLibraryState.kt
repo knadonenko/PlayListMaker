@@ -1,4 +1,4 @@
-package com.example.playlistmaker.library.ui
+package com.example.playlistmaker.library.ui.states
 
 import com.example.playlistmaker.search.data.TrackDto
 

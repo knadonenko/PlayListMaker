@@ -23,7 +23,7 @@
         app:layout_constraintGuide_end="@dimen/margin_16" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/playlist_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_marginBottom="24dp"
@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
-        app:layout_constraintTop_toBottomOf="@id/playlist_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <ImageView
             android:id="@+id/playlist_cover_image"
