@@ -2,6 +2,7 @@ package com.example.playlistmaker
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -27,8 +28,9 @@ class RootActivity : AppCompatActivity() {
 
         navigationController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.audioPlayerFragment -> {
+                R.id.audioPlayerFragment, R.id.fragmentNewPlaylist -> {
                     binding.bottomNavigationView.visibility = View.GONE
+                    window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
                 }
                 else -> {
                     binding.bottomNavigationView.visibility = View.VISIBLE

@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.library.data.Playlist
 import com.example.playlistmaker.library.domain.PlaylistsInteractor
 import com.example.playlistmaker.library.ui.states.PlayListState
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -23,7 +22,7 @@ class PlaylistsViewModel(private val interactor: PlaylistsInteractor): ViewModel
     }
 
     private fun fillData() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             interactor
                 .getPlaylists()
                 .collect { playlists ->
