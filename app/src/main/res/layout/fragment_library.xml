@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:background="@color/settings_main_color"
-    tools:context=".library.ui.LibraryFragment">
+    tools:context=".library.ui.fragments.LibraryFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/library_toolbar"

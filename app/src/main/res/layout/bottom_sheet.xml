@@ -41,6 +41,6 @@
         android:layout_marginHorizontal="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_24"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/botom_sheet_item" />
+        tools:listitem="@layout/bottom_sheet_item" />
 
 </LinearLayout>

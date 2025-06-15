@@ -5,7 +5,6 @@
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_18">18sp</dimen>
     <dimen name="text_size_24">24sp</dimen>
-    <dimen name="corner">16dp</dimen>
     <dimen name="common_margin">16dp</dimen>
     <dimen name="small_padding">8dp</dimen>
     <dimen name="margin_4">4dp</dimen>
@@ -16,6 +15,11 @@
     <dimen name="margin_28">28dp</dimen>
     <dimen name="margin_46">46dp</dimen>
     <dimen name="margin_54">54dp</dimen>
+
+    //corner radius
+    <dimen name="corner_2">2dp</dimen>
+    <dimen name="corner_8">8dp</dimen>
+    <dimen name="corner">16dp</dimen>
 
     <!--Settings screen-->
     <dimen name="settings_text_size">16sp</dimen>
