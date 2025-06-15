@@ -37,7 +37,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileOutputStream
 
-class NewPlaylistFragment : Fragment() {
+class NewPlayListFragment : Fragment() {
     private lateinit var binding: FragmentNewPlayListBinding
     private val viewModel by viewModel<NewPlayListViewModel>()
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
@@ -46,7 +46,7 @@ class NewPlaylistFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentNewPlayListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -155,7 +155,7 @@ class NewPlaylistFragment : Fragment() {
 
             buttonCreate.setOnClickListener {
                 viewModel.onCreateBtnClicked()
-                showAndroidXSnackbar(playlistName.text.toString())
+                showSnackbar(playlistName.text.toString())
             }
         }
     }
@@ -219,7 +219,7 @@ class NewPlaylistFragment : Fragment() {
         viewModel.saveImageUri(file.toURI())
     }
 
-    private fun showAndroidXSnackbar(playlistName: String) {
+    private fun showSnackbar(playlistName: String) {
         val message =
             getString(R.string.playlist) + " \"" + playlistName + "\" " + getString(R.string.created)
         Snackbar
