@@ -8,6 +8,8 @@ import com.example.playlistmaker.search.domain.TrackRepository
 import com.example.playlistmaker.settings.data.SettingsRepoImpl
 import com.example.playlistmaker.settings.domain.SettingsRepository
 import com.example.playlistmaker.library.data.impl.FavoritesRepositoryImpl
+import com.example.playlistmaker.library.data.impl.PlaylistRepositoryImpl
+import com.example.playlistmaker.library.domain.PlaylistsRepository
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -22,5 +24,6 @@ val repositoryModule = module {
     }
 
     singleOf(::FavoritesRepositoryImpl).bind<LibraryRepository>()
+    singleOf(::PlaylistRepositoryImpl).bind<PlaylistsRepository>()
 
 }

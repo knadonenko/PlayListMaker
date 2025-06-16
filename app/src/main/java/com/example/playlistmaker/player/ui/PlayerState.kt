@@ -28,9 +28,6 @@ sealed class PlayerState {
                 }
             binding.primaryGenreName.text = track.primaryGenreName
             binding.countryData.text = track.country
-//            if (isTrackFavorite(track)) {
-//                binding.addFavorites.setImageResource(R.drawable.liked_icon)
-//            }
 
             Glide
                 .with(binding.trackIcon)
@@ -75,18 +72,6 @@ sealed class PlayerState {
             binding.trackProgress.text =
                 binding.trackProgress.resources.getText(R.string.progress_time)
             binding.playButton.setImageResource(R.drawable.play_circle)
-        }
-    }
-
-    class LikeTrack : PlayerState() {
-        override fun render(binding: FragmentPlayerBinding) {
-            binding.addFavorites.setImageResource(R.drawable.liked_icon)
-        }
-    }
-
-    class UnlikeTrack : PlayerState() {
-        override fun render(binding: FragmentPlayerBinding) {
-            binding.addFavorites.setImageResource(R.drawable.like_icon)
         }
     }
 

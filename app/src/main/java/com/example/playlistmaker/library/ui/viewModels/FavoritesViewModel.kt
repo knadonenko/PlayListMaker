@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.helpers.AppConstants
 import com.example.playlistmaker.library.domain.LibraryInteractor
-import com.example.playlistmaker.library.ui.TrackLibraryState
+import com.example.playlistmaker.library.ui.states.TrackLibraryState
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.domain.TrackInteractor
 import com.example.playlistmaker.util.debounce
