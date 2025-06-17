@@ -28,7 +28,7 @@ class RootActivity : AppCompatActivity() {
 
         navigationController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.audioPlayerFragment, R.id.newPlaylist, R.id. -> {
+                R.id.audioPlayerFragment, R.id.newPlaylist, R.id.single_playlist -> {
                     binding.bottomNavigationView.visibility = View.GONE
                     window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
                 }
