@@ -14,4 +14,10 @@
 
         <item name="colorAccent">@color/blue</item>
     </style>
+
+    <style name="MaterialDialogPlayList" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:background">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorPrimary">@color/blue</item>
+    </style>
 </resources>

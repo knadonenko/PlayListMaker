@@ -177,7 +177,8 @@ class SinglePlayListFragment : Fragment() {
     }
 
     private fun longClickOnTrack(track: TrackDto) {
-        MaterialAlertDialogBuilder(requireContext()).setTitle(getString(R.string.delete_track))
+        MaterialAlertDialogBuilder(requireContext(), R.style.MaterialDialogPlayList)
+            .setTitle(getString(R.string.delete_track))
             .setNegativeButton(getString(R.string.no)) { _, _ -> }
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 viewModel.deleteTrack(track.trackId, playlist.playlistId)
