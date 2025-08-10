@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.SearchItemBinding
-import com.example.playlistmaker.helpers.TimeHelper.convertTimeFromMillis
+import com.example.playlistmaker.helpers.TimeHelper.longToMillis
 import com.example.playlistmaker.search.data.TrackDto
 
 class SearchViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
@@ -16,7 +16,7 @@ class SearchViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
     fun bind(track: TrackDto) = with(binding) {
         trackName.text = track.trackName
         artistName.text = track.artistName
-        trackTime.text = convertTimeFromMillis(track.trackTimeMillis)
+        trackTime.text = track.trackTimeMillis.longToMillis()
 
         Glide.with(itemView)
             .load(track.artworkUrl100)

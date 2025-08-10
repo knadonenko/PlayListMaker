@@ -39,6 +39,7 @@ class FavoritesRepositoryImpl(private val database: TrackDataBase) : LibraryRepo
             track.artistName,
             track.trackTimeMillis,
             track.artworkUrl100,
+            track.artworkUrl60,
             track.collectionName,
             track.country,
             track.primaryGenreName,
@@ -55,11 +56,12 @@ class FavoritesRepositoryImpl(private val database: TrackDataBase) : LibraryRepo
             track.artistName,
             track.trackTimeMillis,
             track.artworkUrl100,
+            track.artworkUrl60,
             track.collectionName,
             track.country,
             track.primaryGenreName,
             track.releaseDate,
-            track.previewUrl
+            track.previewUrl,
         )
     }
 }

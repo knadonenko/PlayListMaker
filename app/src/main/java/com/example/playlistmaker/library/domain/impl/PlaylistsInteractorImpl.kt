@@ -1,23 +1,46 @@
 package com.example.playlistmaker.library.domain.impl
 
+import android.net.Uri
 import com.example.playlistmaker.library.data.Playlist
 import com.example.playlistmaker.library.domain.PlaylistsInteractor
 import com.example.playlistmaker.library.domain.PlaylistsRepository
 import com.example.playlistmaker.search.data.TrackDto
-import kotlinx.coroutines.flow.Flow
 
 class PlaylistsInteractorImpl(private val repository: PlaylistsRepository) : PlaylistsInteractor {
-    override fun getPlaylists(): Flow<List<Playlist>> {
-        return repository.getSavedPlaylists()
+    override suspend fun createPlaylist(
+        playlistName: String,
+        playlistDescription: String,
+        imageUri: Uri?
+    ) = repository.createPlaylist(playlistName, playlistDescription, imageUri)
+
+    override suspend fun addTrack(track: TrackDto, playlistId: Int) =
+        repository.addTrack(track, playlistId)
+
+    override suspend fun isTrackAlreadyExists(trackId: Int, playlistId: Int): Boolean =
+        repository.isTrackAlreadyExists(trackId, playlistId)
+
+    override suspend fun getPlaylists(): List<Playlist> =
+        repository.getPlaylists()
+
+    override suspend fun getPlaylist(playlistId: Int): Playlist =
+        repository.getPlaylist(playlistId)
+
+
+    override suspend fun getPlaylistTracks(playlistId: Int): List<TrackDto> =
+        repository.getPlaylistTracks(playlistId)
+
+    override suspend fun updatePlaylist(
+        playlistId: Int,
+        playlistName: String,
+        playlistDescription: String,
+        imageUri: Uri?
+    ) {
+        repository.updatePlaylist(playlistId, playlistName, playlistDescription, imageUri)
     }
 
-    override fun isTrackAddedToPlaylist(playlist: Playlist, track: TrackDto): Boolean {
-        return playlist.trackList.contains(track)
-    }
+    override suspend fun deleteTrack(trackId: Int, playlistId: Int) =
+        repository.deleteTrack(trackId, playlistId)
 
-    override suspend fun addTrackToPlaylist(playlist: Playlist, track: TrackDto) {
-        playlist.trackList += track
-        playlist.tracksCount = playlist.trackList.size
-        repository.updateTracks(playlist)
-    }
+    override suspend fun deletePlaylist(playlist: Playlist) =
+        repository.deletePlaylist(playlist)
 }

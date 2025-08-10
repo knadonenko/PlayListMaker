@@ -20,9 +20,7 @@ class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
-    private val tracksAdapter = SearchViewAdapter {
-        clickOnTrack(it)
-    }
+    private val tracksAdapter = SearchViewAdapter({ clickOnTrack(it) })
 
     override fun onCreateView(
         inflater: LayoutInflater,

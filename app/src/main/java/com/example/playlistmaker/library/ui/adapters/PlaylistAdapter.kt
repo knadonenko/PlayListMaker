@@ -1,23 +1,16 @@
 package com.example.playlistmaker.library.ui.adapters
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.databinding.PlaylistItemBinding
 import com.example.playlistmaker.library.data.Playlist
 import com.example.playlistmaker.library.ui.viewholders.PlaylistViewHolder
 
-class PlaylistAdapter(private val clickListener: PlaylistClickListener) :
+abstract class PlaylistAdapter(private val clickListener: PlaylistClickListener) :
     RecyclerView.Adapter<PlaylistViewHolder>() {
 
     var playlists = mutableListOf<Playlist>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
-        return PlaylistViewHolder(
-            PlaylistItemBinding.inflate(LayoutInflater.from(parent.context),
-                parent, false)
-        )
-    }
+    abstract override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder
 
     override fun getItemCount() = playlists.size
 

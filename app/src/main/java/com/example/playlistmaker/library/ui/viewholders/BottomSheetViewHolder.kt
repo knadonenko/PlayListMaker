@@ -14,7 +14,7 @@ class BottomSheetViewHolder(private val binding: BottomSheetItemBinding) :
     fun bind(model: Playlist) = with(binding) {
         val cornerRadius = itemView.resources.getDimensionPixelSize(R.dimen.corner_2)
 
-        namePlaylist.text = model.playlistName
+        namePlaylist.text = model.name
         countTracks.text = itemView.resources.getQuantityString(
             R.plurals.tracks,
             model.tracksCount,
@@ -22,7 +22,7 @@ class BottomSheetViewHolder(private val binding: BottomSheetItemBinding) :
         )
 
         Glide.with(itemView)
-            .load(model.coverImageUrl)
+            .load(model.cover)
             .placeholder(R.drawable.track_stub_big)
             .transform(CenterCrop(), RoundedCorners(cornerRadius))
             .into(coverPlaylist)

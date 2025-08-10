@@ -7,4 +7,6 @@ object AppConstants {
 
     const val MAX_TRACKS = 10
 
+    const val PLAYLISTS_IMAGES = "playlist_images"
+
 }

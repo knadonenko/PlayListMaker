@@ -34,20 +34,22 @@ class TrackRepositoryImpl(
             }
 
             SUCCESS_CODE -> {
-                emit(Resource.Success((response as TrackSearchResponse).results.map {
+                val listTracks: List<TrackDto> = (response as TrackSearchResponse).results.map {
                     TrackDto(
                         it.trackId,
                         it.trackName,
                         it.artistName,
                         it.trackTimeMillis,
                         it.artworkUrl100,
+                        it.artworkUrl60,
                         it.collectionName,
                         it.releaseDate,
                         it.primaryGenreName,
                         it.country,
                         it.previewUrl
                     )
-                }, SUCCESS_CODE))
+                }
+                emit(Resource.Success(listTracks, SUCCESS_CODE))
             }
 
             else -> {

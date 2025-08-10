@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.room.runtime.android)
     implementation(libs.peko)
+    implementation(libs.androidx.legacy.support.v4)
+    implementation(libs.androidx.recyclerview)
 
     annotationProcessor(libs.compiler)
     testImplementation(libs.junit)

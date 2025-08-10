@@ -22,7 +22,7 @@ class BottomSheetAdapter(private val clickListener: PlaylistClickListener) :
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: BottomSheetViewHolder, position: Int) {
-        val playlistItem = list[holder.adapterPosition]
+        val playlistItem = list[holder.bindingAdapterPosition]
         holder.bind(playlistItem)
         holder.itemView.setOnClickListener { clickListener.onPlaylistClick(playlistItem) }
     }

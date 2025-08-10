@@ -49,7 +49,7 @@ class PlayerViewModel(
         playerInteractor.preparePlayer({
             playerStateEnum = STATE_PREPARED
             screenState.value = PlayerState.Preparing()
-        }, trackDto.previewUrl)
+        }, trackDto.previewUrl!!)
     }
 
     private fun setOnCompletionListener() {

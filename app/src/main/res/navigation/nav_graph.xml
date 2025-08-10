@@ -22,7 +22,14 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/side_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/list_to_single_playlist"
+            app:destination="@id/single_playlist"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/side_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/audioPlayerFragment"
@@ -37,7 +44,7 @@
         android:id="@+id/searchFragment"
         android:name="com.example.playlistmaker.search.ui.SearchFragment"
         android:label="@string/label_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/search_to_player_action"
             app:destination="@id/audioPlayerFragment"
@@ -55,17 +62,31 @@
         android:id="@+id/newPlaylist"
         android:name="com.example.playlistmaker.library.ui.fragments.NewPlayListFragment"
         android:label="@string/label_newPlaylistFragment"
-        tools:layout="@layout/fragment_new_play_list"/>
+        tools:layout="@layout/fragment_new_play_list" />
     <dialog
         android:id="@+id/bottomSheet"
         android:name="com.example.playlistmaker.library.ui.fragments.PlayListBottomSheet"
-        android:label="BottomSheet" >
+        android:label="BottomSheet">
+
+    </dialog>
+    <action
+        android:id="@+id/bottomSheet_to_newPlaylist"
+        app:destination="@id/newPlaylist"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/side_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    <fragment
+        android:id="@+id/single_playlist"
+        android:name="com.example.playlistmaker.library.ui.fragments.SinglePlayListFragment"
+        android:label="@string/single_playlist_fragment"
+        tools:layout="@layout/fragment_single_play_list">
         <action
-            android:id="@+id/bottomSheet_to_newPlaylist"
-            app:destination="@id/newPlaylist"
+            android:id="@+id/single_to_player_action"
+            app:destination="@id/audioPlayerFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/side_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-    </dialog>
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 </navigation>

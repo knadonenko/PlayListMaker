@@ -8,7 +8,8 @@ import com.example.playlistmaker.R
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.network.SearchDiffCallBack
 
-class SearchViewAdapter(private val clickListener: TrackClickListener) : RecyclerView.Adapter<SearchViewHolder>() {
+class SearchViewAdapter(private val clickListener: TrackClickListener,
+                        private val longClickListener: LongTrackClickListener? = null) : RecyclerView.Adapter<SearchViewHolder>() {
 
     var tracks = ArrayList<TrackDto>()
         set(newTrackList) {
@@ -32,12 +33,22 @@ class SearchViewAdapter(private val clickListener: TrackClickListener) : Recycle
                 clickListener.onTrackClick(tracks[position])
             }
         }
+        longClickListener?.let { listener ->
+            holder.itemView.setOnLongClickListener {
+                listener.onTrackLongClick(tracks[holder.adapterPosition])
+                return@setOnLongClickListener true
+            }
+        }
     }
 
     override fun getItemCount() = tracks.size
 
     fun interface TrackClickListener {
         fun onTrackClick(track: TrackDto)
+    }
+
+    fun interface LongTrackClickListener {
+        fun onTrackLongClick(track: TrackDto)
     }
 
 }

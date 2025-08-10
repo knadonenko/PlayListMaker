@@ -21,7 +21,7 @@ sealed class PlayerState {
             ).format(track.trackTimeMillis.toLong())
             binding.albumName.text = track.collectionName
             binding.releaseDateData.text =
-                convertDate(track.releaseDate)?.let {
+                convertDate(track.releaseDate!!)?.let {
                     SimpleDateFormat("yyyy", Locale.getDefault()).format(
                         it
                     )
@@ -31,7 +31,7 @@ sealed class PlayerState {
 
             Glide
                 .with(binding.trackIcon)
-                .load(track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
+                .load(track.artworkUrl100!!.replaceAfterLast('/', "512x512bb.jpg"))
                 .placeholder(R.drawable.track_stub_big)
                 .centerCrop()
                 .transform(

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.playlistmaker.R
@@ -51,9 +52,7 @@ class PlayerFragment : Fragment() {
         }
 
         binding.addPlayList.setOnClickListener {
-            findNavController().navigate(
-                R.id.audioPlayerFragment_to_bottomSheet, PlayListBottomSheet.createArgs(track)
-            )
+            PlayListBottomSheet.newInstance(track).show(childFragmentManager, PlayListBottomSheet.TAG)
         }
 
         viewModel.state.observe(viewLifecycleOwner) {

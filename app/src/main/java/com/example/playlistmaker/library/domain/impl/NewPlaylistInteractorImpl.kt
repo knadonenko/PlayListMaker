@@ -7,6 +7,6 @@ import com.example.playlistmaker.library.domain.PlaylistsRepository
 class NewPlaylistInteractorImpl(private val repository: PlaylistsRepository) :
     NewPlaylistInteractor {
     override suspend fun create(playlist: Playlist) {
-        repository.createPlaylist(playlist)
+//        repository.createPlaylist(playlist)
     }
 }
