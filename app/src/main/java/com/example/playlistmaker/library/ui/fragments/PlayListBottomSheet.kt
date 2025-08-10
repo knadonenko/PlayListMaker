@@ -47,23 +47,21 @@ class PlayListBottomSheet(val track: TrackDto) : BottomSheetDialogFragment() {
     ): View {
         _binding = BottomSheetBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.playlistsRecycler.adapter = playlistsAdapter
 
         viewModel.observePlaylistsState().observe(viewLifecycleOwner) {
             when (it) {
                 is BottomSheetPLState.Empty -> binding.playlistsRecycler.visibility = View.GONE
-
                 is BottomSheetPLState.Playlists -> {
                     playlistsAdapter.notifyDataSetChanged()
                     playlistsAdapter.playlists = it.playlists.toMutableList()
                     binding.playlistsRecycler.visibility = View.VISIBLE
                 }
-
                 is BottomSheetPLState.AddTrackResult -> {
                     if (it.isAdded) {
                         showToast(getString(R.string.added, it.playlistName))
@@ -93,14 +91,17 @@ class PlayListBottomSheet(val track: TrackDto) : BottomSheetDialogFragment() {
         Toast.makeText(requireContext(), additionalMessage, Toast.LENGTH_LONG).show()
     }
 
-    companion object {
+    override fun onResume() {
+        super.onResume()
+        viewModel.requestPlaylists()
+    }
 
+    companion object {
         const val TAG = "PlaylistsBottomSheet"
 
         fun newInstance(track: TrackDto): PlayListBottomSheet {
             return PlayListBottomSheet(track)
         }
-
     }
 
     override fun onDestroyView() {

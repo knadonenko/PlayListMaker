@@ -49,21 +49,21 @@ class PlaylistMenuBottomSheet(private val playlist: Playlist, private val shareT
             PLAYLISTS_IMAGES
         )
         Glide
-            .with(binding.itemBottomSheet.namePlaylist)
+            .with(binding.itemBottomSheet.playlistName)
             .load(playlist.cover?.let { File(filePath, it) })
             .placeholder(R.drawable.track_stub_big)
-            .into(binding.itemBottomSheet.coverPlaylist)
+            .into(binding.itemBottomSheet.playlistCover)
 
         with(binding) {
-            itemBottomSheet.namePlaylist.text = playlist.name
-            itemBottomSheet.countTracks.text =
-                itemBottomSheet.countTracks.resources.getQuantityString(
+            itemBottomSheet.playlistName.text = playlist.name
+            itemBottomSheet.playlistTracks.text =
+                itemBottomSheet.playlistTracks.resources.getQuantityString(
                     R.plurals.tracks, playlist.tracksCount, playlist.tracksCount
                 )
 
-            itemBottomSheet.namePlaylist.text = playlist.name
-            itemBottomSheet.countTracks.text =
-                itemBottomSheet.countTracks.resources.getQuantityString(
+            itemBottomSheet.playlistName.text = playlist.name
+            itemBottomSheet.playlistTracks.text =
+                itemBottomSheet.playlistTracks.resources.getQuantityString(
                     R.plurals.tracks, playlist.tracksCount, playlist.tracksCount
                 )
         }

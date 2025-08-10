@@ -14,8 +14,8 @@ class BottomSheetViewHolder(private val binding: BottomSheetItemBinding) :
     fun bind(model: Playlist) = with(binding) {
         val cornerRadius = itemView.resources.getDimensionPixelSize(R.dimen.corner_2)
 
-        namePlaylist.text = model.name
-        countTracks.text = itemView.resources.getQuantityString(
+        playlistName.text = model.name
+        playlistTracks.text = itemView.resources.getQuantityString(
             R.plurals.tracks,
             model.tracksCount,
             model.tracksCount
@@ -25,7 +25,7 @@ class BottomSheetViewHolder(private val binding: BottomSheetItemBinding) :
             .load(model.cover)
             .placeholder(R.drawable.track_stub_big)
             .transform(CenterCrop(), RoundedCorners(cornerRadius))
-            .into(coverPlaylist)
+            .into(playlistCover)
     }
 
 }
