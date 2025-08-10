@@ -4,17 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.playlistmaker.helpers.AppConstants
 import com.example.playlistmaker.helpers.AppConstants.TWO_SECONDS_DEBOUNCE_DELAY
 import com.example.playlistmaker.library.domain.PlaylistsInteractor
 import com.example.playlistmaker.library.ui.states.PlaylistState
+import com.example.playlistmaker.search.data.TrackDto
+import com.example.playlistmaker.search.domain.TrackInteractor
+import com.example.playlistmaker.util.debounce
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 
-class PlaylistViewModel(private val playlistsInteractor: PlaylistsInteractor) : ViewModel() {
+class PlaylistViewModel(private val playlistsInteractor: PlaylistsInteractor,
+    private val trackInteractor: TrackInteractor) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<PlaylistState>()
 
-    var isClickable = true
+    private var isClickable = true
 
     fun observeState(): LiveData<PlaylistState> = stateLiveData
 
@@ -50,14 +55,15 @@ class PlaylistViewModel(private val playlistsInteractor: PlaylistsInteractor) : 
 
     fun clickDebounce(): Boolean {
         val current = isClickable
-        if (isClickable) {
-            isClickable = false
-            viewModelScope.launch {
-                delay(TWO_SECONDS_DEBOUNCE_DELAY)
-                isClickable = true
-            }
+        debounce<Boolean>(AppConstants.SECOND_DEBOUNCE_DELAY, viewModelScope, false) {
+            isClickable = it
         }
         return current
+    }
+
+    fun clickOnTrack(track: TrackDto) {
+        clickDebounce()
+        trackInteractor.setCurrentTrack(track)
     }
 
 }

@@ -169,19 +169,17 @@ class SinglePlayListFragment : Fragment() {
 
     private fun clickOnTrack(track: TrackDto) {
         if (viewModel.clickDebounce()) {
+            viewModel.clickOnTrack(track)
             findNavController().navigate(
                 R.id.single_to_player_action,
-                Bundle().apply {
-                    putParcelable(TRACK, track)
-                }
             )
         }
     }
 
     private fun longClickOnTrack(track: TrackDto) {
         MaterialAlertDialogBuilder(requireContext()).setTitle(getString(R.string.delete_track))
-            .setNegativeButton(getString(R.string.yes)) { _, _ -> }
-            .setPositiveButton(getString(R.string.no)) { _, _ ->
+            .setNegativeButton(getString(R.string.no)) { _, _ -> }
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 viewModel.deleteTrack(track.trackId, playlist.playlistId)
             }.show()
     }
