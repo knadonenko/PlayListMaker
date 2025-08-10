@@ -5,14 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.helpers.AppConstants
-import com.example.playlistmaker.helpers.AppConstants.TWO_SECONDS_DEBOUNCE_DELAY
 import com.example.playlistmaker.library.domain.PlaylistsInteractor
 import com.example.playlistmaker.library.ui.states.PlaylistState
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.domain.TrackInteractor
 import com.example.playlistmaker.util.debounce
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.delay
 
 class PlaylistViewModel(private val playlistsInteractor: PlaylistsInteractor,
     private val trackInteractor: TrackInteractor) : ViewModel() {

@@ -17,7 +17,6 @@ import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentSinglePlayListBinding
 import com.example.playlistmaker.helpers.AppConstants.PLAYLISTS_IMAGES
 import com.example.playlistmaker.helpers.IntentConstants
-import com.example.playlistmaker.helpers.IntentConstants.TRACK
 import com.example.playlistmaker.library.data.Playlist
 import com.example.playlistmaker.library.ui.states.PlaylistState
 import com.example.playlistmaker.library.ui.viewModels.PlaylistViewModel
@@ -108,7 +107,7 @@ class SinglePlayListFragment : Fragment() {
             trackAdapter.notifyDataSetChanged()
             var totalDuration = 0L
             trackAdapter.tracks.forEach { track ->
-                totalDuration += track.trackTimeMillis.toLong()
+                totalDuration += track.trackTimeMillis
             }
             totalDuration = TimeUnit.MILLISECONDS.toMinutes(totalDuration)
 
