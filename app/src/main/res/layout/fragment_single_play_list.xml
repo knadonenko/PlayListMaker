@@ -5,6 +5,7 @@
     android:id="@+id/single_playlist"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".library.ui.fragments.SinglePlayListFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -120,10 +121,12 @@
         <View
             android:id="@+id/shareLine"
             android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="23dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_24"
+            app:layout_constraintTop_toBottomOf="@id/share"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/share" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -135,7 +138,7 @@
         android:orientation="vertical"
         android:visibility="visible"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="240dp"
+        app:behavior_peekHeight="250dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <View

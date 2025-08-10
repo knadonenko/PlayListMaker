@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentPlaylistBinding
@@ -15,7 +14,6 @@ import com.example.playlistmaker.library.ui.adapters.PlaylistAdapter
 import com.example.playlistmaker.library.ui.states.PlayListsState
 import com.example.playlistmaker.library.ui.viewModels.PlaylistsViewModel
 import com.example.playlistmaker.library.ui.viewholders.PlaylistViewHolder
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlaylistsFragment : Fragment() {
@@ -47,9 +45,20 @@ class PlaylistsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.contentFlow.collect { screenState ->
-                render(screenState)
+        viewModel.observeState().observe(viewLifecycleOwner) {
+            when (it) {
+                is PlayListsState.Empty -> {
+                    _binding.recyclerViewPlaylist.visibility = View.GONE
+                    _binding.placeholderNoPlaylist.visibility = View.VISIBLE
+                }
+
+                is PlayListsState.Content -> {
+                    playlistsAdapter.notifyDataSetChanged()
+                    playlistsAdapter.playlists = it.playlists.toMutableList()
+                    _binding.placeholderNoPlaylist.visibility = View.GONE
+                    _binding.recyclerViewPlaylist.visibility = View.VISIBLE
+                    _binding.recyclerViewPlaylist.smoothScrollToPosition(0)
+                }
             }
         }
 
@@ -60,34 +69,6 @@ class PlaylistsFragment : Fragment() {
         }
 
         initAdapter()
-    }
-
-    private fun render(state: PlayListsState) {
-        when (state) {
-            is PlayListsState.Content -> showContent(state.playlists)
-            PlayListsState.Empty -> showPlaceholder()
-        }
-    }
-
-    private fun showPlaceholder() {
-        _binding.apply {
-            placeholderNoPlaylist.visibility = View.VISIBLE
-            recyclerViewPlaylist.visibility = View.GONE
-        }
-    }
-
-    private fun showContent(content: List<Playlist>) {
-
-        _binding.apply {
-            placeholderNoPlaylist.visibility = View.GONE
-            recyclerViewPlaylist.visibility = View.VISIBLE
-        }
-
-        playlistsAdapter.apply {
-            playlists.clear()
-            playlists.addAll(content)
-            notifyDataSetChanged()
-        }
     }
 
     private fun initAdapter() {
@@ -106,6 +87,11 @@ class PlaylistsFragment : Fragment() {
 
     companion object {
         fun newInstance() = PlaylistsFragment()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.requestPlaylists()
     }
 
 }
