@@ -83,7 +83,7 @@ class PlaylistRepositoryImpl(
     }
 
     override suspend fun deletePlaylist(playlist: Playlist) {
-        deleteAlbumImage(playlist.cover!!)
+        playlist.cover?.let { deleteAlbumImage(it) }
         database
             .playlistsDao()
             .deletePlaylist(playlist.playlistId)
