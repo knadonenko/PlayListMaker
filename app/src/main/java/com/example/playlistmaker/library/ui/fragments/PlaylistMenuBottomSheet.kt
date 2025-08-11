@@ -93,10 +93,11 @@ class PlaylistMenuBottomSheet(private val playlist: Playlist, private val shareT
         }
 
         binding.buttonDelete.setOnClickListener {
-            MaterialAlertDialogBuilder(requireContext()).setTitle(getString(R.string.delete_playlist)
+            MaterialAlertDialogBuilder(requireContext(), R.style.MaterialDialogPlayList)
+                .setTitle(getString(R.string.delete_playlist)
                     + " ${playlist.name}?")
-                .setNegativeButton(getString(R.string.yes)) { _, _ -> }
-                .setPositiveButton(getString(R.string.no)) { _, _ ->
+                .setNegativeButton(getString(R.string.no)) { _, _ -> }
+                .setPositiveButton(getString(R.string.yes)) { _, _ ->
                     viewModel.deletePlaylist(playlist) { findNavController().popBackStack() }
                 }.show()
         }
