@@ -85,7 +85,7 @@ class PlaylistMenuBottomSheet(private val playlist: Playlist, private val shareT
         binding.buttonEdit.setOnClickListener {
             dismiss()
             findNavController().navigate(
-                R.id.single_to_player_action,
+                R.id.single_to_newPlaylistFragment,
                 Bundle().apply {
                     putParcelable(PLAYLIST, playlist)
                 }

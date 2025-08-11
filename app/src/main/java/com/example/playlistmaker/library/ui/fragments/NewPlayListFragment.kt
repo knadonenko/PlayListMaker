@@ -1,7 +1,9 @@
 package com.example.playlistmaker.library.ui.fragments
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +11,19 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentNewPlayListBinding
+import com.example.playlistmaker.helpers.AppConstants.PLAYLISTS_IMAGES
+import com.example.playlistmaker.helpers.IntentConstants.PLAYLIST
 import com.example.playlistmaker.library.data.Playlist
 import com.example.playlistmaker.library.ui.viewModels.NewPlayListViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 
 class NewPlayListFragment : Fragment() {
     private lateinit var binding: FragmentNewPlayListBinding
@@ -36,6 +42,24 @@ class NewPlayListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        playlist?.let {
+            binding.toolbar.title = getString(R.string.edit_info)
+            binding.buttonCreate.text = getString(R.string.save_info)
+            binding.playlistName.setText(it.name)
+            binding.playlistDescription.setText(it.description)
+            it.cover?.let { imageName ->
+                binding.playlistCoverImage.setImageURI(
+                    File(
+                        File(
+                            requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                            PLAYLISTS_IMAGES
+                        ), imageName
+                    ).toUri()
+                )
+            }
+            binding.buttonCreate.isEnabled = true
+        }
 
         binding.playlistName.doOnTextChanged { s: CharSequence?, _, _, _ ->
             binding.buttonCreate.isEnabled = !s.isNullOrEmpty()
@@ -102,6 +126,11 @@ class NewPlayListFragment : Fragment() {
         binding.playlistCoverImage.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        playlist = arguments?.getParcelable(PLAYLIST, Playlist::class.java)
     }
 
     private fun goBack() {
