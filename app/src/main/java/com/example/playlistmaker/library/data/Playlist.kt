@@ -1,7 +1,6 @@
 package com.example.playlistmaker.library.data
 
 import android.os.Parcelable
-import com.example.playlistmaker.search.data.TrackDto
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

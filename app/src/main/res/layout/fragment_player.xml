@@ -99,13 +99,14 @@
         app:tint="@color/white"
         />
 
-    <ImageButton
+    <com.example.playlistmaker.uicomponents.PlaybackButtonView
         android:id="@+id/play_button"
-        android:layout_width="@dimen/button_play"
-        android:layout_height="@dimen/button_play"
-        android:background="@drawable/play_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="84dp"
         android:foregroundGravity="center"
         android:layout_marginTop="30dp"
+        app:pausedButton="@drawable/pause_circle"
+        app:playButton="@drawable/play_circle"
         app:layout_constraintEnd_toStartOf="@id/add_favorites"
         app:layout_constraintStart_toEndOf="@id/add_play_list"
         app:layout_constraintTop_toBottomOf="@id/artistName"
