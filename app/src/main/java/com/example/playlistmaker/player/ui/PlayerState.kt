@@ -18,7 +18,7 @@ sealed class PlayerState {
             binding.trackTime.text = SimpleDateFormat(
                 "mm:ss",
                 Locale.getDefault()
-            ).format(track.trackTimeMillis.toLong())
+            ).format(track.trackTimeMillis)
             binding.albumName.text = track.collectionName
             binding.releaseDateData.text =
                 convertDate(track.releaseDate!!)?.let {
@@ -45,11 +45,11 @@ sealed class PlayerState {
         override fun render(binding: FragmentPlayerBinding) {
             when (playerStateEnum) {
                 PlayerViewModel.PlayerStateEnum.STATE_PLAYING -> {
-                    binding.playButton.setBackgroundResource(R.drawable.pause_circle)
+                    binding.playButton.changeButtonState(true)
                 }
 
                 else -> {
-                    binding.playButton.setBackgroundResource(R.drawable.play_circle)
+                    binding.playButton.changeButtonState(false)
                 }
             }
         }
@@ -71,7 +71,7 @@ sealed class PlayerState {
         override fun render(binding: FragmentPlayerBinding) {
             binding.trackProgress.text =
                 binding.trackProgress.resources.getText(R.string.progress_time)
-            binding.playButton.setImageResource(R.drawable.play_circle)
+            binding.playButton.changeButtonState(false)
         }
     }
 
