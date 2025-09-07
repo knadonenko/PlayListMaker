@@ -31,13 +31,9 @@ class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     private val searchViewModel by viewModel<TrackSearchViewModel>()
 
-    private val historyAdapter = SearchViewAdapter {
-        clickOnTrack(it)
-    }
+    private val historyAdapter = SearchViewAdapter({ clickOnTrack(it) })
 
-    private val searchAdapter = SearchViewAdapter {
-        clickOnTrack(it)
-    }
+    private val searchAdapter = SearchViewAdapter({ clickOnTrack(it) })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,7 +69,8 @@ class SearchFragment : Fragment() {
         binding.inputSearchForm.doOnTextChanged { s: CharSequence?, _, _, _ ->
             binding.clearForm.visibility = if (s.isNullOrEmpty()) View.GONE else View.VISIBLE
             if (binding.inputSearchForm.hasFocus()
-                && s.toString().isNotEmpty()) {
+                && s.toString().isNotEmpty()
+            ) {
                 showPlaceholder(SEARCH_RESULT)
             }
             searchViewModel.searchDebounce(binding.inputSearchForm.text.toString())

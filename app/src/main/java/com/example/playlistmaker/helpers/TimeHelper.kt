@@ -6,13 +6,12 @@ import java.util.Locale
 
 object TimeHelper {
 
-    fun convertTimeFromMillis(time: String) : String {
-        return SimpleDateFormat("mm:ss", Locale.getDefault())
-            .format(time.toInt())
-    }
-
     fun convertDate(date: String) : Date? {
         return SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date)
+    }
+
+    fun Long.longToMillis(): String {
+        return SimpleDateFormat("mm:ss", Locale.getDefault()).format(this)
     }
 
 }

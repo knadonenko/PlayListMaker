@@ -9,19 +9,37 @@ import androidx.core.content.edit
 
 class TrackStorage(private val preferences: SharedPreferences) : LocalStorage {
     override fun addToHistory(track: TrackDto) {
-        val searchedTracks = getHistory().map { TrackDto(it.trackId,
-            it.trackName,
-            it.artistName,
-            it.trackTimeMillis,
-            it.artworkUrl100,
-            it.collectionName,
-            it.releaseDate,
-            it.primaryGenreName,
-            it.country,
-            it.previewUrl) } as MutableList
-        if (searchedTracks.contains(TrackDto(track.trackId, track.trackName,
-                track.artistName, track.trackTimeMillis, track.artworkUrl100, track.collectionName,
-                track.releaseDate, track.primaryGenreName, track.country, track.previewUrl))) {
+        val searchedTracks = getHistory().map {
+            TrackDto(
+                it.trackId,
+                it.trackName,
+                it.artistName,
+                it.trackTimeMillis,
+                it.artworkUrl100,
+                it.artworkUrl60,
+                it.collectionName,
+                it.releaseDate,
+                it.primaryGenreName,
+                it.country,
+                it.previewUrl
+            )
+        } as MutableList
+        if (searchedTracks.contains(
+                TrackDto(
+                    track.trackId,
+                    track.trackName,
+                    track.artistName,
+                    track.trackTimeMillis,
+                    track.artworkUrl100,
+                    track.artworkUrl60,
+                    track.collectionName,
+                    track.releaseDate,
+                    track.primaryGenreName,
+                    track.country,
+                    track.previewUrl
+                )
+            )
+        ) {
             searchedTracks.remove(track)
         }
         searchedTracks.add(0, track)
@@ -31,14 +49,14 @@ class TrackStorage(private val preferences: SharedPreferences) : LocalStorage {
 
         val json = Gson().toJson(searchedTracks)
         preferences.edit {
-                putString(HISTORY_TRACK.prefName, json)
-            }
+            putString(HISTORY_TRACK.prefName, json)
+        }
     }
 
     override fun clearHistory() {
         preferences.edit {
-                clear()
-            }
+            clear()
+        }
     }
 
     override fun getHistory(): ArrayList<TrackDto> {

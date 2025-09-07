@@ -12,7 +12,6 @@ import com.example.playlistmaker.search.domain.TrackInteractor
 import com.example.playlistmaker.search.domain.TrackInteractorImpl
 import com.example.playlistmaker.settings.domain.SettingsInteractor
 import com.example.playlistmaker.settings.domain.SettingsInteractorImpl
-import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module

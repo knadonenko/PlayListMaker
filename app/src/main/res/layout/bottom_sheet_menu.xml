@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/player_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet"
+    android:orientation="vertical"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:context=".library.ui.fragments.PlaylistMenuBottomSheet">
+
+    <View
+        android:layout_width="50dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_8"
+        android:background="@drawable/round_rect" />
+
+    <include
+        android:id="@+id/item_bottom_sheet"
+        layout="@layout/bottom_sheet_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12" />
+
+    <Button
+        android:id="@+id/buttonSharing"
+        style="@style/button_borderless"
+        android:text="@string/share_playlist" />
+
+    <Button
+        android:id="@+id/buttonEdit"
+        style="@style/button_borderless"
+        android:text="@string/edit_info" />
+
+    <Button
+        android:id="@+id/buttonDelete"
+        style="@style/button_borderless"
+        android:text="@string/delete" />
+
+</LinearLayout>
