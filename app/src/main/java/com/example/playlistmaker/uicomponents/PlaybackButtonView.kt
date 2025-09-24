@@ -22,7 +22,7 @@ class PlaybackButtonView @JvmOverloads constructor(
     private var imageBitmap: Bitmap?
     private var pauseButtonImage: Bitmap?
     private var playButtonImage: Bitmap?
-    var setButtonClickListener: (() -> Unit)? = null
+    var buttonClickListener: (() -> Unit)? = null
     private var imageRect = RectF(0f, 0f, 0f, 0f)
 
     init {
@@ -58,7 +58,7 @@ class PlaybackButtonView @JvmOverloads constructor(
     }
 
     override fun performClick(): Boolean {
-        setButtonClickListener?.invoke()
+        buttonClickListener?.invoke()
         return super.performClick()
     }
 
