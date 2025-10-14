@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.BottomSheetBinding
-import com.example.playlistmaker.helpers.IntentConstants.TRACK
 import com.example.playlistmaker.library.data.Playlist
 import com.example.playlistmaker.library.ui.adapters.PlaylistAdapter
 import com.example.playlistmaker.library.ui.states.BottomSheetPLState
@@ -17,8 +15,6 @@ import com.example.playlistmaker.library.ui.viewModels.BottomSheetViewModel
 import com.example.playlistmaker.library.ui.viewholders.PlaylistViewHolder
 import com.example.playlistmaker.search.data.TrackDto
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlayListBottomSheet(val track: TrackDto) : BottomSheetDialogFragment() {

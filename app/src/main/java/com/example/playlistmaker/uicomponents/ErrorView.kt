@@ -42,11 +42,14 @@ fun ErrorView(
             modifier = Modifier.padding(top = 16.dp),
             color = colorResource(R.color.search_result_track_text_color),
             fontFamily = FontFamily(Font(R.font.ys_display_medium)),
-            fontSize = 18.sp,
+            fontSize = 16.sp,
             textAlign = TextAlign.Center
         )
         if (showRetry) {
-//            ActionButton(onClick = onRetry, text = stringResource(R.string.retry_button))
+            ButtonView(
+                onClickAction = onRetry,
+                text = stringResource(R.string.retry_button)
+            )
         }
     }
 }

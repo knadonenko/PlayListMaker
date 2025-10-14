@@ -16,13 +16,13 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.playlistmaker.R
 
 @Composable
-fun ButtonView(onClickAction: () -> Unit) {
+fun ButtonView(onClickAction: () -> Unit,
+               text: String = stringResource(R.string.clear_history)) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,7 +44,7 @@ fun ButtonView(onClickAction: () -> Unit) {
             modifier = Modifier.height(40.dp)
         ) {
             Text(
-                text = stringResource(R.string.clear_history),
+                text = text,
                 fontSize = 14.sp,
                 fontFamily = FontFamily(Font(R.font.ys_display_medium)),
                 letterSpacing = 0.sp
