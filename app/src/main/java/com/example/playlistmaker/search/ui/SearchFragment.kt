@@ -52,7 +52,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
 
-    private lateinit var binding: FragmentSearchBinding
     private val searchViewModel by viewModel<TrackSearchViewModel>()
 
     override fun onCreateView(
@@ -60,7 +59,6 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
         return ComposeView(requireContext()).apply {
             setContent {
                 SearchScreen(searchViewModel)
@@ -239,15 +237,6 @@ class SearchFragment : Fragment() {
     private fun clickOnTrack(track: TrackDto) {
         searchViewModel.onSearchClicked(track)
         findNavController().navigate(R.id.search_to_player_action)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(SAVED_SEARCH, binding.inputSearchForm.toString())
-    }
-
-    companion object {
-        const val SAVED_SEARCH = "SAVED_SEARCH"
     }
 
 }
