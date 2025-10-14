@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -50,15 +52,16 @@ class FavoritesFragment : Fragment() {
     private fun FavoritesScreen(viewModel: FavoritesViewModel) {
         val state by viewModel.observeContentState().observeAsState()
 
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(colorResource(id = R.color.settings_main_color)),
-            contentAlignment = Alignment.Center
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             when (state) {
                 is TrackLibraryState.Empty -> {
+                    Spacer(modifier = Modifier.height(100.dp))
                     ErrorView(
                         icon = painterResource(id = R.drawable.not_found),
                         text = stringResource(R.string.empty_library),
