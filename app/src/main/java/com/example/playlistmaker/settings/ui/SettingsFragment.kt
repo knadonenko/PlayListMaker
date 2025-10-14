@@ -52,7 +52,7 @@ class SettingsFragment : Fragment() {
         }
     }
 
-    @Preview(device = "id:pixel_8")
+//    @Preview(device = "id:pixel_8")
     @Composable
     private fun Settings() {
         val darkTheme by viewModel.isDarkTheme.observeAsState(false)

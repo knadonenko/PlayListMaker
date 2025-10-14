@@ -1,5 +1,6 @@
 package com.example.playlistmaker.search.ui
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,8 +14,12 @@ import kotlinx.coroutines.launch
 class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewModel() {
 
     private val screenState = MutableLiveData<SearchScreenState>()
+    val searchScreenState: LiveData<SearchScreenState> = screenState
     private val showToast = SingleLiveEvent<String>()
     private var isClickable = true
+
+    var query = mutableStateOf("")
+        private set
 
     fun observeState(): LiveData<SearchScreenState> = screenState
 
@@ -38,6 +43,7 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
 
     fun searchDebounce(changedText: String) {
         if (changedText.isNotEmpty()) {
+            query.value = changedText
             trackSearchDebounce(changedText)
         }
     }
@@ -111,6 +117,7 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
 
     fun clearSearch() {
         val historyTracks = showHistory()
+        query.value = ""
         if (historyTracks.isNotEmpty()) {
             renderState(SearchScreenState.ShowHistory(historyTracks))
         } else {
