@@ -210,6 +210,7 @@ private fun SearchTextField(
                         Text(
                             text = stringResource(R.string.search),
                             fontFamily = FontFamily(Font(R.font.ys_display_regular)),
+                            fontSize = 16.sp,
                             color = colorResource(id = R.color.settings_icon_color),
                         )
                     },
@@ -217,7 +218,7 @@ private fun SearchTextField(
                         Icon(
                             painter = painterResource(id = R.drawable.search),
                             contentDescription = null,
-                            tint = colorResource(R.color.grey)
+                            tint = colorResource(R.color.settings_icon_color)
                         )
                     },
                     trailingIcon = {
@@ -226,7 +227,7 @@ private fun SearchTextField(
                                 Icon(
                                     painter = painterResource(id = R.drawable.clear_search),
                                     contentDescription = null,
-                                    tint = colorResource(R.color.grey)
+                                    tint = colorResource(R.color.settings_icon_color)
                                 )
                             }
                         }
