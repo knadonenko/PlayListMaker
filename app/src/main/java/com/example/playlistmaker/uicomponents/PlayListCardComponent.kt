@@ -63,7 +63,6 @@ fun PlaylistCardComponent(
 
         // Название плейлиста
         Text(
-            modifier = Modifier.padding(2.dp),
             text = playlist.name,
             style = MaterialTheme.typography.titleSmall.copy(
                 fontWeight = FontWeight.Medium
