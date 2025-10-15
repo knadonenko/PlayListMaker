@@ -1,5 +1,6 @@
 package com.example.playlistmaker.search.ui
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,15 +9,19 @@ import com.example.playlistmaker.helpers.AppConstants
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.search.domain.TrackInteractor
 import com.example.playlistmaker.util.debounce
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewModel() {
 
     private val screenState = MutableLiveData<SearchScreenState>()
+    val searchScreenState: LiveData<SearchScreenState> = screenState
     private val showToast = SingleLiveEvent<String>()
     private var isClickable = true
+    private var searchJob: Job? = null
 
-    fun observeState(): LiveData<SearchScreenState> = screenState
+    var query = mutableStateOf("")
+        private set
 
     fun observeShowToast(): LiveData<String> = showToast
 
@@ -33,11 +38,13 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
             viewModelScope,
             true
         ) { changedText ->
+            searchJob?.cancel()
             getTracks(changedText)
         }
 
     fun searchDebounce(changedText: String) {
         if (changedText.isNotEmpty()) {
+            query.value = changedText
             trackSearchDebounce(changedText)
         }
     }
@@ -56,9 +63,9 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
     }
 
     fun getTracks(query: String) {
-        if (query.isNotEmpty()) {
+        if (query.isNotEmpty() && query == this.query.value) {
             renderState(SearchScreenState.Loading)
-            viewModelScope.launch {
+            searchJob = viewModelScope.launch {
                 trackInteractor.searchSongs(query).collect { pair ->
                     processResult(pair.first, pair.second)
                 }
@@ -110,7 +117,9 @@ class TrackSearchViewModel(private val trackInteractor: TrackInteractor) : ViewM
     }
 
     fun clearSearch() {
+        query.value = ""
         val historyTracks = showHistory()
+        searchJob?.cancel()
         if (historyTracks.isNotEmpty()) {
             renderState(SearchScreenState.ShowHistory(historyTracks))
         } else {

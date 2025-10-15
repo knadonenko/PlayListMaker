@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
     kotlin("plugin.serialization") version "2.1.21"
@@ -8,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.example.playlistmaker"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.playlistmaker"
         minSdk = 29
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -35,13 +36,14 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
@@ -63,6 +65,11 @@ dependencies {
     implementation(libs.peko)
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.ui.tooling.preview.android)
+    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     annotationProcessor(libs.compiler)
     testImplementation(libs.junit)
@@ -71,6 +78,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.androidx.room.runtime)
+    debugImplementation(libs.androidx.ui.tooling)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.kotlinx.serialization.json)

@@ -13,6 +13,7 @@
     <color name="settings_text_color">#FFFFFF</color>
     <color name="settings_icon_color">#000000</color>
     <color name="settings_switch">#3772E7</color>
+    <color name="tab_indicator">@color/white</color>
     <color name="arrow_color">#FFFFFF</color>
 
     <color name="edit_text_color">#FFFFFF</color>

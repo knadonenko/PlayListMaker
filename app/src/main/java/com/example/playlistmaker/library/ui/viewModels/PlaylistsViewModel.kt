@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 class PlaylistsViewModel(private val interactor: PlaylistsInteractor) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<PlayListsState>()
-
     fun observeState(): LiveData<PlayListsState> = stateLiveData
 
     private fun renderState(state: PlayListsState) {
