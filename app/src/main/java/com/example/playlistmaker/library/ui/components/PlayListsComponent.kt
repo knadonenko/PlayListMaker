@@ -70,11 +70,10 @@ fun PlaylistScreen(viewModel: PlaylistsViewModel,
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp),
+                            .fillMaxWidth(),
                         contentPadding = PaddingValues(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         items(playlists) { playlist ->
                             PlaylistCardComponent(

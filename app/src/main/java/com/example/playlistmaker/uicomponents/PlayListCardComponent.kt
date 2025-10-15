@@ -3,17 +3,16 @@ package com.example.playlistmaker.uicomponents
 import android.os.Environment
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -33,18 +32,17 @@ fun PlaylistCardComponent(
     playlist: Playlist,
     onClick: () -> Unit
 ) {
-    Column(
-        modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
-    ) {
+    Column (Modifier
+        .fillMaxWidth()
+        .padding(4.dp)){
         // Карточка с обложкой плейлиста
         val filePath = File(
             LocalContext.current.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
             PLAYLISTS_IMAGES
         )
         Card(
-            modifier = Modifier
-                .size(160.dp)
-                .clip(RoundedCornerShape(8.dp)),
+            modifier = Modifier.aspectRatio(1f)
+                .fillMaxWidth(),
             elevation = CardDefaults.cardElevation(0.dp),
             onClick = onClick
         ) {
@@ -64,6 +62,7 @@ fun PlaylistCardComponent(
         // Название плейлиста
         Text(
             text = playlist.name,
+            modifier = Modifier.padding(top = 2.dp),
             style = MaterialTheme.typography.titleSmall.copy(
                 fontWeight = FontWeight.Medium
             ),
