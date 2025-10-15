@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -195,6 +196,7 @@ private fun SearchTextField(
                 fontSize = 14.sp
             ),
             singleLine = true,
+            cursorBrush = SolidColor(colorResource(R.color.blue)) ,
             decorationBox = { innerTextField ->
                 TextFieldDefaults.DecorationBox(
                     value = query,
@@ -238,7 +240,7 @@ private fun SearchTextField(
                         focusedTextColor = colorResource(R.color.edit_text_color),
                         focusedIndicatorColor = colorResource(R.color.edit_text_color),
                         unfocusedContainerColor = colorResource(R.color.edit_text_color),
-                        unfocusedIndicatorColor = colorResource(R.color.edit_text_color)
+                        unfocusedIndicatorColor = colorResource(R.color.edit_text_color),
                     ),
                     contentPadding = PaddingValues(0.dp),
                 )
