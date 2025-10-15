@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.playlistmaker.R
 
 @Composable
-fun LoadingViewComponent() {
+fun LoadingComponent() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.TopCenter

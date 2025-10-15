@@ -41,10 +41,12 @@ fun LibraryScreen() {
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
 
-    val tabs = listOf(
-        stringResource(R.string.favorite_tracks),
-        stringResource(R.string.playlists)
-    )
+    val tabs = remember {
+        listOf(
+            R.string.favorite_tracks,
+            R.string.playlists
+        )
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -63,7 +65,9 @@ fun LibraryScreen() {
                 contentColor = colorResource(R.color.settings_text_color),
                 indicator = {
                     TabRowDefaults.PrimaryIndicator(
-                        modifier = Modifier.fillMaxWidth().tabIndicatorOffset(pagerState.currentPage),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .tabIndicatorOffset(pagerState.currentPage),
                         width = Dp.Unspecified,
                         color = colorResource(R.color.tab_indicator)
                     )
@@ -75,7 +79,7 @@ fun LibraryScreen() {
                         onClick = { scope.launch { pagerState.animateScrollToPage(index) } },
                         text = {
                             Text(
-                                text = title,
+                                text = stringResource(title),
                                 fontFamily = FontFamily(Font(R.font.ys_display_medium)),
                                 fontSize = 16.sp
                             )
