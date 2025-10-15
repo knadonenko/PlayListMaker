@@ -1,8 +1,6 @@
 package com.example.playlistmaker.uicomponents
 
 import android.os.Environment
-import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,26 +14,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
-import coil3.size.Scale
 import com.example.playlistmaker.R
 import com.example.playlistmaker.helpers.AppConstants.PLAYLISTS_IMAGES
 import com.example.playlistmaker.library.data.Playlist
 import java.io.File
-import kotlin.String
-import kotlin.math.log
 
 @Composable
-fun PlaylistCardView(
+fun PlaylistCardComponent(
     playlist: Playlist,
     onClick: () -> Unit
 ) {

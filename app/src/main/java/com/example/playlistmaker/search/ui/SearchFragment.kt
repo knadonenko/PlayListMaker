@@ -38,16 +38,15 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.playlistmaker.R
-import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.helpers.PlaceHolder
 import com.example.playlistmaker.helpers.PlaceHolder.SEARCH_RESULT
 import com.example.playlistmaker.helpers.PlaceHolder.TRACKS_HISTORY
 import com.example.playlistmaker.search.data.TrackDto
 import com.example.playlistmaker.ui.components.AppBarComponent
-import com.example.playlistmaker.uicomponents.ButtonView
+import com.example.playlistmaker.uicomponents.ButtonComponent
 import com.example.playlistmaker.uicomponents.ErrorView
-import com.example.playlistmaker.uicomponents.LoadingView
-import com.example.playlistmaker.uicomponents.TrackItem
+import com.example.playlistmaker.uicomponents.LoadingViewComponent
+import com.example.playlistmaker.uicomponents.TrackItemComponent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
@@ -89,7 +88,7 @@ class SearchFragment : Fragment() {
                     })
 
                 when (state) {
-                    is SearchScreenState.Loading -> LoadingView()
+                    is SearchScreenState.Loading -> LoadingViewComponent()
                     is SearchScreenState.Success -> SearchContent(
                         trackList = (state as SearchScreenState.Success).tracks,
                         query = query,
@@ -137,7 +136,7 @@ class SearchFragment : Fragment() {
                     .padding(top = 24.dp)
             ) {
                 items(trackList) { track ->
-                    TrackItem(track = track, onClick = { onSearchClicked(track) })
+                    TrackItemComponent(track = track, onClick = { onSearchClicked(track) })
                 }
             }
 
@@ -158,10 +157,10 @@ class SearchFragment : Fragment() {
                             .padding(top = 24.dp)
                     ) {
                         items(trackList) { track ->
-                            TrackItem(track = track, onClick = { onSearchClicked(track) })
+                            TrackItemComponent(track = track, onClick = { onSearchClicked(track) })
                         }
                         item {
-                            ButtonView(onClickAction = onClearHistory)
+                            ButtonComponent(onClickAction = onClearHistory)
                         }
                     }
                 }

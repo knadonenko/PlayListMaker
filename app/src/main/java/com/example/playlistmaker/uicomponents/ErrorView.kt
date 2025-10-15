@@ -46,7 +46,7 @@ fun ErrorView(
             textAlign = TextAlign.Center
         )
         if (showRetry) {
-            ButtonView(
+            ButtonComponent(
                 onClickAction = onRetry,
                 text = stringResource(R.string.retry_button)
             )

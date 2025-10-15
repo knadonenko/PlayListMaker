@@ -18,7 +18,8 @@ fun AppBarComponent(title: String) {
         title = {
             Text(
                 text = title,
-                fontSize = 22.sp
+                fontSize = 22.sp,
+                color = colorResource(R.color.settings_text_color)
             )
         },
         modifier = Modifier.fillMaxWidth(),
