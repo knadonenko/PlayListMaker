@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -33,7 +34,7 @@ fun PlaylistCardComponent(
     onClick: () -> Unit
 ) {
     Column(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+        modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
     ) {
         // Карточка с обложкой плейлиста
         val filePath = File(
@@ -52,18 +53,18 @@ fun PlaylistCardComponent(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(data = image)
                     .build(),
-                modifier = Modifier.fillMaxSize().background(colorResource(R.color.white)),
+                modifier = Modifier.fillMaxSize().background(colorResource(R.color.settings_main_color)),
                 placeholder = painterResource(R.drawable.track_stub),
                 error = painterResource(R.drawable.track_stub),
+                contentScale = ContentScale.FillBounds,
                 contentDescription = null,
             )
         }
 
         // Название плейлиста
         Text(
+            modifier = Modifier.padding(2.dp),
             text = playlist.name,
-            modifier = Modifier
-                .padding(top = 8.dp),
             style = MaterialTheme.typography.titleSmall.copy(
                 fontWeight = FontWeight.Medium
             ),
@@ -75,8 +76,6 @@ fun PlaylistCardComponent(
         // Количество треков
         Text(
             text = playlist.tracksCount.toString(),
-            modifier = Modifier
-                .padding(top = 8.dp),
             style = MaterialTheme.typography.titleSmall.copy(
                 fontWeight = FontWeight.Medium
             ),
